@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_Categories"
+            android:title="Categories" />
+        <item
+            android:id="@+id/nav_SubCategories"
+            android:title="Sub Categories " />
+        <item
+            android:id="@+id/nav_TypeCategories"
+            android:title="Types of Categories" />
+        <item
+            android:id="@+id/nav_brandCategories"
+            android:title="Brand Categories" />
+
+        <item
+            android:id="@+id/nav_Search"
+            android:title="Search" />
+        <item
+            android:id="@+id/nav_login"
+            android:title="Login" />
+    </group>
+
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/nav_ofcLink"
+                android:title="Copyright@2019:Awizom Tech Bytes Pvt Ltd" />
+            <!--<item-->
+                <!--android:id="@+id/nav_send"-->
+                <!--android:title=" " />-->
+        </menu>
+    </item>
+
+</menu>

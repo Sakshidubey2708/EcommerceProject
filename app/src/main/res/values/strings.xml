@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Ecommerce Project</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">E-Commerce</string>
+    <string name="nav_header_subtitle">ecommerce@gmail.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="Categories"><u>Categories</u></string>
+    <string name="SubCategories"><u>Sub Categories</u></string>
+    <string name="CategoryType"><u>Category Type</u></string>
+    <string name="BrandType"><u>Brand Type</u></string>
+    <string name="ProductType"><u>Product Type</u></string>
+</resources>
