@@ -1,15 +1,18 @@
 package com.bytes.tech.awizom.ecommerceproject.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 import com.bytes.tech.awizom.ecommerceproject.R;
 import com.bytes.tech.awizom.ecommerceproject.activity.ProductDetailsActivity;
+import com.bytes.tech.awizom.ecommerceproject.activity.SingleDetailView;
 import com.bytes.tech.awizom.ecommerceproject.models.ProductModel;
 
 import java.util.List;
@@ -55,13 +58,23 @@ public class ProductDetailsAdapter extends BaseAdapter {
             TextView titlenames = (TextView) gridViewAndroid.findViewById(R.id.title_name);
             final TextView discount = (TextView) gridViewAndroid.findViewById(R.id.discount);
             final TextView imglinkurl = gridViewAndroid.findViewById(R.id.imgLink);
+            final Button clickGo = gridViewAndroid.findViewById(R.id.go);
+            final TextView pID = (TextView) gridViewAndroid.findViewById(R.id.pid);
             //  final ProgressBar progressBar = gridViewAndroid.findViewById(R.id.homeprogress);
             try {
                 productnames.setText(productModelList.get(i).getProductName());
                 titlenames.setText(productModelList.get(i).getTitleName());
                 discount.setText(String.valueOf(productModelList.get(i).getTotalDiscounts()) +"%" + " " +"OFF");
+                pID.setText(String.valueOf(productModelList.get(i).getProductId()));
 
-
+                clickGo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(mContext, SingleDetailView.class);
+                        intent.putExtra("ID", pID.getText().toString());
+                        mContext.startActivity(intent);
+                    }
+                });
                 final Handler handler = new Handler();
                 final int[] colors = {Color.BLUE, Color.RED };
                 final int[] j = new int[1];

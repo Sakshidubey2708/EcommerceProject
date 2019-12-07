@@ -318,6 +318,7 @@ public class HelperApi extends AppCompatActivity {
         }
     }
 
+
     public static final class GetSingleProductList extends AsyncTask<String, Void, String> {
 
         @Override
@@ -328,7 +329,7 @@ public class HelperApi extends AppCompatActivity {
 
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "/GetProductsList/" + pID);
+                builder.url(AppConfig.BASE_URL_API + "/GetProductsLists/" + pID);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 okhttp3.Response response = client.newCall(builder.build()).execute();
@@ -353,18 +354,17 @@ public class HelperApi extends AppCompatActivity {
         }
     }
 
-
     public static final class GetSingleNAmeMainCategoriesList extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... strings) {
             String json = "";
-            String name = strings[0];
+            String mainID = strings[0];
             try {
 
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "/GetMainCategoriesTypeList/" + name);
+                builder.url(AppConfig.BASE_URL_API + "/GetProductsListByMainCAtagory/" + mainID);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 okhttp3.Response response = client.newCall(builder.build()).execute();
@@ -394,12 +394,12 @@ public class HelperApi extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
             String json = "";
-            String name = strings[0];
+            String subID = strings[0];
             try {
 
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "/GetSubCategoriessListTypeList/" + name);
+                builder.url(AppConfig.BASE_URL_API + "/GetProductsListBySubCAtagory/" + subID);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 okhttp3.Response response = client.newCall(builder.build()).execute();
@@ -429,12 +429,12 @@ public class HelperApi extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
             String json = "";
-            String name = strings[0];
+            String typeID = strings[0];
             try {
 
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "/GetSubCategoriessListsTypeList/" + name);
+                builder.url(AppConfig.BASE_URL_API + "/GetProductsListByTypeCAtagory/" + typeID);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 okhttp3.Response response = client.newCall(builder.build()).execute();
@@ -464,12 +464,12 @@ public class HelperApi extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
             String json = "";
-            String name = strings[0];
+            String brandID = strings[0];
             try {
 
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "/GetBrandsListTypeList/" +name);
+                builder.url(AppConfig.BASE_URL_API + "/GetProductsListByBrandCAtagory/" +brandID);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 okhttp3.Response response = client.newCall(builder.build()).execute();
