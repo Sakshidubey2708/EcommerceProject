@@ -1,6 +1,7 @@
 package com.bytes.tech.awizom.ecommerceproject.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -31,7 +32,7 @@ public class SubCatagoryAdapter extends  RecyclerView.Adapter<SubCatagoryAdapter
     @Override
     public OrderItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mCtx);
-        View view = inflater.inflate(R.layout.adapter, null);
+        View view = inflater.inflate(R.layout.sub_catagory_adapter, null);
         return new OrderItemViewHolder(view, mCtx, catagoriesModelList);
     }
 
@@ -41,6 +42,17 @@ public class SubCatagoryAdapter extends  RecyclerView.Adapter<SubCatagoryAdapter
 
         holder.catagory_names.setText(catagoriesModel.getSubCatName().toString());
         holder.catagoryIDs.setText(String.valueOf(catagoriesModel.getSubCatId()));
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+
+
+
+            }
+        });
 
     }
 
@@ -66,6 +78,9 @@ public class SubCatagoryAdapter extends  RecyclerView.Adapter<SubCatagoryAdapter
 
             catagory_names = view.findViewById(R.id.catagory_name);
             catagoryIDs=view.findViewById(R.id.catagoryID);
+
+            itemView.setOnClickListener(this);
+
 
         }
 

@@ -11,15 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.bytes.tech.awizom.ecommerceproject.R;
-import com.bytes.tech.awizom.ecommerceproject.activity.ViewSubCatagoryActivity;
 import com.bytes.tech.awizom.ecommerceproject.adapter.SubCatagoryAdapter;
 import com.bytes.tech.awizom.ecommerceproject.configure.HelperApi;
 import com.bytes.tech.awizom.ecommerceproject.models.CatagoriesModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -65,8 +62,8 @@ public class TabFragment extends Fragment {
 
     private void initView(View view) {
 
-        recyclerView = view.findViewById(R.id.recyclerView);
-        mSwipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+        recyclerView = view.findViewById(R.id.recyclerViewItems);
+        mSwipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayoutItems);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, true));
 

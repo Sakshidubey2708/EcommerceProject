@@ -4,13 +4,25 @@ public class ProductModel {
 
     public long ProductId ;
     public String ModelName ;
-    public long MRP;
-    public long AssuredPrice ;
-    public long TotalDiscounts ;
+    public double MRP;
+    public double AssuredPrice ;
+    public double TotalDiscounts ;
     public long BrandId;
     public long CategoryId;
     public String highlights ;
     public String Img1;
+
+
+
+
+    public String ProductName;
+    public String TitleName ;
+
+    public long MainCatId ;
+    public long SubCatId ;
+    public long TypeSubCatId ;
+    public String HighlightsDesign ;
+    public String Descriptions ;
 
     public long getProductId() {
         return ProductId;
@@ -28,27 +40,27 @@ public class ProductModel {
         ModelName = modelName;
     }
 
-    public long getMRP() {
+    public double getMRP() {
         return MRP;
     }
 
-    public void setMRP(long MRP) {
+    public void setMRP(double MRP) {
         this.MRP = MRP;
     }
 
-    public long getAssuredPrice() {
+    public double getAssuredPrice() {
         return AssuredPrice;
     }
 
-    public void setAssuredPrice(long assuredPrice) {
+    public void setAssuredPrice(double assuredPrice) {
         AssuredPrice = assuredPrice;
     }
 
-    public long getTotalDiscounts() {
+    public double getTotalDiscounts() {
         return TotalDiscounts;
     }
 
-    public void setTotalDiscounts(long totalDiscounts) {
+    public void setTotalDiscounts(double totalDiscounts) {
         TotalDiscounts = totalDiscounts;
     }
 
@@ -82,5 +94,61 @@ public class ProductModel {
 
     public void setImg1(String img1) {
         Img1 = img1;
+    }
+
+    public String getProductName() {
+        return ProductName;
+    }
+
+    public void setProductName(String productName) {
+        ProductName = productName;
+    }
+
+    public String getTitleName() {
+        return TitleName;
+    }
+
+    public void setTitleName(String titleName) {
+        TitleName = titleName;
+    }
+
+    public long getMainCatId() {
+        return MainCatId;
+    }
+
+    public void setMainCatId(long mainCatId) {
+        MainCatId = mainCatId;
+    }
+
+    public long getSubCatId() {
+        return SubCatId;
+    }
+
+    public void setSubCatId(long subCatId) {
+        SubCatId = subCatId;
+    }
+
+    public long getTypeSubCatId() {
+        return TypeSubCatId;
+    }
+
+    public void setTypeSubCatId(long typeSubCatId) {
+        TypeSubCatId = typeSubCatId;
+    }
+
+    public String getHighlightsDesign() {
+        return HighlightsDesign;
+    }
+
+    public void setHighlightsDesign(String highlightsDesign) {
+        HighlightsDesign = highlightsDesign;
+    }
+
+    public String getDescriptions() {
+        return Descriptions;
+    }
+
+    public void setDescriptions(String descriptions) {
+        Descriptions = descriptions;
     }
 }

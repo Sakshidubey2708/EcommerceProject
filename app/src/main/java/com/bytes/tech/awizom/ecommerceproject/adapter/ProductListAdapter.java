@@ -1,6 +1,8 @@
 package com.bytes.tech.awizom.ecommerceproject.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -38,8 +40,24 @@ public class ProductListAdapter extends  RecyclerView.Adapter<ProductListAdapter
     @Override
     public void onBindViewHolder(@NonNull final OrderItemViewHolder holder, int position) {
         ProductModel catagoriesModel = productModelList.get(position);
-        holder.catagory_names.setText(catagoriesModel.getModelName().toString());
-        holder.catagoryIDs.setText(String.valueOf(catagoriesModel.getMRP()));
+        try{
+            holder.titleNames.setText(catagoriesModel.getTitleName().toString());
+            holder.productNames.setText(catagoriesModel.getProductName().toString());
+            holder.descriPtions.setText(catagoriesModel.getDescriptions().toString());
+            holder.highliGhts.setText(catagoriesModel.getHighlightsDesign().toString());
+
+            holder.mrpPrice.setText("MRP"+"₹"+String.valueOf(catagoriesModel.getMRP()));
+            holder.assuredPrices.setText("AssuredPrice:"+"₹"+String.valueOf(catagoriesModel.getAssuredPrice()));
+            holder.discounts.setText("Dis:" +String.valueOf(catagoriesModel.getTotalDiscounts())+"%");
+
+            holder.productId.setText(String.valueOf(catagoriesModel.getTotalDiscounts()));
+            holder.brandId.setText(String.valueOf(catagoriesModel.getTotalDiscounts()));
+            holder.categoryId.setText(String.valueOf(catagoriesModel.getTotalDiscounts()));
+            holder.mainId.setText(String.valueOf(catagoriesModel.getMainCatId()));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
 
@@ -51,7 +69,7 @@ public class ProductListAdapter extends  RecyclerView.Adapter<ProductListAdapter
     class OrderItemViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener {
 
         private Context mCtx;
-        private TextView catagory_names,catagoryIDs;
+        private TextView titleNames,productNames,descriPtions,highliGhts, mrpPrice,assuredPrices,discounts,productId,brandId,categoryId,mainId;
         private List<ProductModel> productModelList;
         private ProductModel productModel;
         private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
@@ -60,8 +78,47 @@ public class ProductListAdapter extends  RecyclerView.Adapter<ProductListAdapter
             super(view);
             this.mCtx = mCtx;
             this.productModelList = OrderNewOnes;
-            catagory_names = view.findViewById(R.id.ModelNAme);
-            catagoryIDs=view.findViewById(R.id.MRP);
+            titleNames = view.findViewById(R.id.TitleNAme);
+            productNames =view.findViewById(R.id.productNAme);
+            descriPtions = view.findViewById(R.id.description);
+            highliGhts =view.findViewById(R.id.highlights);
+            mrpPrice =view.findViewById(R.id.MRP);
+            assuredPrices = view.findViewById(R.id.assuredPrice);
+            discounts = view.findViewById(R.id.discount);
+
+            productId =view.findViewById(R.id.ProductId);
+            brandId = view.findViewById(R.id.BrandId);
+            categoryId = view.findViewById(R.id.CategoryId);
+            mainId = view.findViewById(R.id.mainID);
+
+            final Handler handler = new Handler();
+            final int[] colors = {Color.BLUE, Color.RED};
+            final int[] i = new int[1];
+            Runnable runnable = new Runnable () {
+                @Override
+                public void run() {
+                    i[0] = i[0] % colors.length;
+                    discounts.setTextColor(colors[i[0]]);
+                    i[0]++;
+                    handler.postDelayed(this, 1000);
+                }
+            };
+            handler.postDelayed(runnable, 1000);
+
+
+//            final Handler handlers = new Handler();
+//            final int[] colorss = {Color.BLUE, Color.RED};
+//            final int[] j = new int[1];
+//            Runnable runnables = new Runnable () {
+//                @Override
+//                public void run() {
+//                    j[0] = j[0] % colorss.length;
+//                    mrpPrice.setTextColor(colorss[j[0]]);
+//                    j[0]++;
+//                    handlers.postDelayed(this, 1000);
+//                }
+//            };
+//            handlers.postDelayed(runnables, 1000);
         }
 
         @Override

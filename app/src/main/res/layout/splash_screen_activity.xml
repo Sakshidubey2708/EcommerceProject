@@ -15,7 +15,7 @@
        android:layout_height="wrap_content"
        android:text="@string/nav_header_title"
        android:fontFamily="serif"
-       android:textColor="@color/blue"
+       android:textColor="@color/maroon"
        android:layout_centerHorizontal="true"
        android:layout_centerVertical="true"
        android:textAllCaps="false"

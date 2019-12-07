@@ -31,7 +31,7 @@ public class MainCatagoryAdapter extends  RecyclerView.Adapter<MainCatagoryAdapt
     @Override
     public OrderItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mCtx);
-        View view = inflater.inflate(R.layout.adapter, null);
+        View view = inflater.inflate(R.layout.maincatagory_adapter, null);
         return new OrderItemViewHolder(view, mCtx, catagoriesModelList);
     }
 

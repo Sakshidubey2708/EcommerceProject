@@ -50,8 +50,8 @@ public class ViewMainCatagoryActivity extends AppCompatActivity {
         toolbar.setTitleTextAppearance(getApplicationContext(), R.style.styleA);
         toolbar.setTitleTextColor(Color.WHITE);
 
-        recyclerView = findViewById(R.id.recyclerView);
-        mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        recyclerView = findViewById(R.id.recyclerViewItems);
+        mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayoutItems);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 

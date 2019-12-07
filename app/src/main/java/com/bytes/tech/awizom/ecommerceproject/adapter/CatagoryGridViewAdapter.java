@@ -12,7 +12,7 @@ import com.bytes.tech.awizom.ecommerceproject.R;
 import com.bytes.tech.awizom.ecommerceproject.models.CatagoriesModel;
 import java.util.List;
 
-public class CustomerHomePageAdapter extends BaseAdapter {
+public class CatagoryGridViewAdapter extends BaseAdapter {
 
     //  private final String[] catalogNameList;
 
@@ -20,7 +20,7 @@ public class CustomerHomePageAdapter extends BaseAdapter {
     private Context mContext;
     private String skipdata="";
 
-    public CustomerHomePageAdapter(MainActivity newCustomerHome, List<CatagoriesModel> categorylist) {
+    public CatagoryGridViewAdapter(MainActivity newCustomerHome, List<CatagoriesModel> categorylist) {
 
         this.mContext = newCustomerHome;
         this.catalogNameList = categorylist;

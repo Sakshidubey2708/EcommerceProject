@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        card_view:cardCornerRadius="5dp"
+        card_view:cardCornerRadius="2dp"
         android:padding="10dp"
         card_view:cardElevation="2dp"
         android:layout_gravity="center|center_horizontal">
@@ -21,36 +21,38 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_margin="5dp"
-            android:background="@drawable/background_cardview"
+            android:background="@drawable/productlayout_shape"
             android:gravity="center|center_horizontal"
             android:layout_gravity="center_horizontal|center">
             <RelativeLayout
-                android:layout_width="170dp"
-                android:layout_height="100dp"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
                 android:orientation="vertical"
-                android:padding="5dp">
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp">
 
                 <ImageView
-                    android:layout_width="match_parent"
+                    android:id="@+id/imageShow"
+                    android:layout_width="1000dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:padding="3dp"
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true"
-                    android:src="@mipmap/img1" />
+                    android:src="@mipmap/jwel" />
                 <!--<TextView-->
 
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:text="Ecommerce"-->
-                    <!--android:textSize="13sp"-->
-                    <!--android:padding="10dp"-->
-                    <!--android:layout_gravity="center|center_horizontal"-->
-                    <!--android:gravity="center|center_horizontal"-->
-                    <!--android:textStyle="bold"-->
-                    <!--android:textColor="@color/black"-->
-                    <!--android:fontFamily="@font/fonts"/>-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:text="Ecommerce"-->
+                <!--android:textSize="13sp"-->
+                <!--android:padding="10dp"-->
+                <!--android:layout_gravity="center|center_horizontal"-->
+                <!--android:gravity="center|center_horizontal"-->
+                <!--android:textStyle="bold"-->
+                <!--android:textColor="@color/black"-->
+                <!--android:fontFamily="@font/fonts"/>-->
 
                 <TextView
                     android:id="@+id/imgLink"
@@ -59,17 +61,43 @@
                     android:visibility="gone" />
 
             </RelativeLayout>
+
             <TextView
-                android:id="@+id/catalogName"
-                android:layout_width="wrap_content"
+                android:id="@+id/product_name"
+                android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:textSize="14sp"
+                android:layout_gravity="right"
+                android:fontFamily="serif"
+                android:gravity="right"
+                android:text="Product NAme"
+                android:textColor="@color/blue"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:padding="5dp"/>
+            <TextView
+                android:id="@+id/title_name"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:textSize="16sp"
                 android:fontFamily="serif"
                 android:textStyle="bold"
                 android:textColor="@color/blue"
                 android:layout_gravity="right"
-                android:gravity="center|center_horizontal"
-                android:text="@string/app_name"/>
+                android:gravity="right"
+                android:padding="5dp"
+                android:hint="Title Name"/>
+            <TextView
+                android:id="@+id/discount"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:textSize="15sp"
+                android:fontFamily="serif"
+                android:textStyle="bold"
+                android:padding="5dp"
+                android:textColor="@color/blue"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:hint="Discount"/>
 
             <Button
                 android:layout_width="100dp"
@@ -77,6 +105,7 @@
                 android:textColor="@color/white"
                 android:textSize="13sp"
                 android:layout_gravity="right"
+                android:padding="5dp"
                 android:text="go!"
                 android:textAllCaps="false"
                 android:background="@drawable/button_shape"/>

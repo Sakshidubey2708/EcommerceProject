@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="@string/Categories"
-                android:textColor="@color/blue"
+                android:textColor="@color/maroon"
                 android:fontFamily="@font/fonts"
                 android:textSize="15sp"
                 android:padding="5dp"/>
@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/SubCategories"
                 android:layout_marginTop="8dp"
-                android:textColor="@color/blue"
+                android:textColor="@color/maroon"
                 android:fontFamily="@font/fonts"
                 android:textSize="15sp"
                 android:padding="5dp"/>
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/CategoryType"
                 android:layout_marginTop="8dp"
-                android:textColor="@color/blue"
+                android:textColor="@color/maroon"
                 android:fontFamily="@font/fonts"
                 android:textSize="15sp"
                 android:padding="5dp"/>
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/BrandType"
                 android:layout_marginTop="8dp"
-                android:textColor="@color/blue"
+                android:textColor="@color/maroon"
                 android:fontFamily="@font/fonts"
                 android:textSize="15sp"
                 android:padding="5dp"/>
@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/ProductType"
                 android:layout_marginTop="8dp"
-                android:textColor="@color/blue"
+                android:textColor="@color/maroon"
                 android:fontFamily="@font/fonts"
                 android:textSize="15sp"
                 android:padding="5dp"/>
@@ -104,13 +104,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp">
                 <android.support.v4.widget.SwipeRefreshLayout
-                    android:id="@+id/swipeRefreshLayout"
+                    android:id="@+id/swipeRefreshLayoutItems"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@+id/layout">
 
                     <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recyclerView"
+                        android:id="@+id/recyclerViewItems"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/layout" />

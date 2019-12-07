@@ -38,7 +38,7 @@ public class ProductListActivity extends AppCompatActivity {
     private void initview() {
 
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Categories");
+        toolbar.setTitle("Product");
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -52,8 +52,8 @@ public class ProductListActivity extends AppCompatActivity {
         toolbar.setTitleTextAppearance(getApplicationContext(), R.style.styleA);
         toolbar.setTitleTextColor(Color.WHITE);
 
-        recyclerView = findViewById(R.id.recyclerView);
-        mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        recyclerView = findViewById(R.id.recyclerViewItems);
+        mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayoutItems);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
@@ -61,13 +61,13 @@ public class ProductListActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 // Refresh items
-                getMainCatagories();
+                getProductList();
             }
         });
-        getMainCatagories();
+        getProductList();
     }
 
-    private void getMainCatagories() {
+    private void getProductList() {
         try {
             mSwipeRefreshLayout.setRefreshing(true);
             result = new HelperApi.GetAllProductList().execute().get();
@@ -83,8 +83,8 @@ public class ProductListActivity extends AppCompatActivity {
                     }.getType();
                     productModel = new Gson().fromJson(result, listType);
                     Log.d("Error", productModel.toString());
-                    ProductListAdapter subCatagoryAdapter= new ProductListAdapter(ProductListActivity.this, productModel);
-                    recyclerView.setAdapter(subCatagoryAdapter);
+                    ProductListAdapter productListAdapter= new ProductListAdapter(ProductListActivity.this, productModel);
+                    recyclerView.setAdapter(productListAdapter);
                     mSwipeRefreshLayout.setRefreshing(false);
                 }
             }
