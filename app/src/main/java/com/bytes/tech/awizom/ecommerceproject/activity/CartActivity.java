@@ -9,40 +9,36 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import com.bytes.tech.awizom.ecommerceproject.adapter.ProductListAdapter;
-import com.bytes.tech.awizom.ecommerceproject.adapter.TypeOfCatagoryAdapter;
+
+import com.bytes.tech.awizom.ecommerceproject.R;
+import com.bytes.tech.awizom.ecommerceproject.adapter.CartAdapter;
 import com.bytes.tech.awizom.ecommerceproject.configure.HelperApi;
+import com.bytes.tech.awizom.ecommerceproject.models.CartModel;
 import com.bytes.tech.awizom.ecommerceproject.models.ProductModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import com.bytes.tech.awizom.ecommerceproject.R;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class ProductListActivity extends AppCompatActivity {
+public class CartActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     private String result = "";
-    List<ProductModel> productModel;
+    List<CartModel> cartModels;
     SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.recyclerview_list_layout);
-        try {
-            initview();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        setContentView(R.layout.addtocart_layout);
 
+        initview();
     }
 
     private void initview() {
-
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Product");
+        toolbar.setTitle("My CartModel");
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -55,26 +51,31 @@ public class ProductListActivity extends AppCompatActivity {
         toolbar.setSubtitleTextAppearance(getApplicationContext(), R.style.styleA);
         toolbar.setTitleTextAppearance(getApplicationContext(), R.style.styleA);
         toolbar.setTitleTextColor(Color.WHITE);
+        
+        try{
+            recyclerView = findViewById(R.id.recyclerViewCart);
+            mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayoutCart);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
-        recyclerView = findViewById(R.id.recyclerView);
-        mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    // Refresh items
+                    getCArt();
+                }
+            });
+            getCArt();
 
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // Refresh items
-                getProductList();
-            }
-        });
-        getProductList();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
-    private void getProductList() {
+    private void getCArt() {
         try {
             mSwipeRefreshLayout.setRefreshing(true);
-            result = new HelperApi.GetAllProductList().execute().get();
+            result = new HelperApi.GetCartList().execute().get();
             if (result.isEmpty()) {
                 mSwipeRefreshLayout.setRefreshing(false);
             } else {
@@ -83,18 +84,19 @@ public class ProductListActivity extends AppCompatActivity {
                 } else {
                     /*   Toast.makeText(getApplicationContext(),result+"",Toast.LENGTH_LONG).show();*/
                     Gson gson = new Gson();
-                    Type listType = new TypeToken<List<ProductModel>>() {
+                    Type listType = new TypeToken<List<CartModel>>() {
                     }.getType();
-                    productModel = new Gson().fromJson(result, listType);
-                    Log.d("Error", productModel.toString());
-                    ProductListAdapter productListAdapter= new ProductListAdapter(ProductListActivity.this, productModel);
-                    recyclerView.setAdapter(productListAdapter);
+                    cartModels = new Gson().fromJson(result, listType);
+                    Log.d("Error", cartModels.toString());
+                    CartAdapter cartAdapter= new CartAdapter(CartActivity.this, cartModels);
+                    recyclerView.setAdapter(cartAdapter);
                     mSwipeRefreshLayout.setRefreshing(false);
                 }
             }
-            } catch (Exception e) {
-                mSwipeRefreshLayout.setRefreshing(false);
+        } catch (Exception e) {
+            mSwipeRefreshLayout.setRefreshing(false);
             e.printStackTrace();
         }
+
     }
 }

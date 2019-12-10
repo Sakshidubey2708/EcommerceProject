@@ -41,11 +41,11 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
         <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout"
+        android:id="@+id/swipeRefreshLayoutCart"
         android:layout_width="match_parent"
         android:layout_height="400dp">
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/recyclerViewCart"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:scrollbars="vertical"

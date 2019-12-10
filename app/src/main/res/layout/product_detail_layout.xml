@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -10,7 +10,24 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:background="?attr/colorPrimary"
-    app:popupTheme="@style/AppTheme.PopupOverlay"/>
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+        <EditText
+            android:id="@+id/searchEdit"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:text="Search"
+            android:padding="5dp"
+            android:textColor="@color/white"
+            android:drawableLeft="@drawable/ic_search_black_24dp"/>
+
+
+        <ImageView
+            android:id="@+id/cartviews"
+            android:layout_width="wrap_content"
+            android:paddingLeft="5dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_shopping_cart_black_24dp" />
+    </android.support.v7.widget.Toolbar>
 
 
     <LinearLayout
@@ -30,7 +47,7 @@
             android:gravity="left"
             android:layout_alignParentLeft="true"
             android:paddingLeft="15dp"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="40dp"/>
 
         <GridView
             android:id="@+id/gridviewproduct"
@@ -48,11 +65,35 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="600dp">
+            android:layout_height="700dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="456dp"
                 android:layout_marginTop="10dp"/>
         </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="1dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="Sort"
+            android:textSize="14sp"
+            android:textColor="@color/grey_darks"
+            android:gravity="center|center_horizontal"
+            android:background="@drawable/layout_shape"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="filter"
+            android:textSize="14sp"
+            android:textColor="@color/grey_darks"
+            android:gravity="center|center_horizontal"
+            android:background="@drawable/layout_shape"/>
+    </LinearLayout>
+</RelativeLayout>

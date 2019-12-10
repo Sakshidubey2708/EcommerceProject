@@ -32,6 +32,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <ImageView
+                        android:id="@+id/deleteButton"
                         android:layout_width="35dp"
                         android:layout_height="20dp"
                         android:src="@drawable/ic_close_black_24dp"/>
@@ -49,6 +50,7 @@
                         android:orientation="vertical"
                         android:layout_weight="1">
                         <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/productImage"
                             android:layout_width="150dp"
                             android:layout_height="150dp"
                             android:src="@mipmap/img4"
@@ -61,7 +63,7 @@
                         android:layout_weight="1"
                         android:layout_gravity="center_horizontal|center">
                         <TextView
-                            android:id="@+id/catagory_name"
+                            android:id="@+id/productname"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:hint="Catagory"
@@ -73,7 +75,7 @@
                             android:gravity="left"/>
 
                         <TextView
-                        android:id="@+id/price"
+                        android:id="@+id/assuredRate"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:textSize="13sp"
@@ -86,14 +88,15 @@
 
 
                         <TextView
-                            android:id="@+id/catagoryID"
+                            android:id="@+id/productId"
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
                             android:visibility="gone"/>
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:layout_marginTop="20dp">
                             <Button
                                 android:id="@+id/minus"
                                 android:layout_width="30dp"
@@ -128,17 +131,17 @@
                                 android:layout_marginLeft="4dp"/>
                         </LinearLayout>
 
-                        <Button
-                            android:id="@+id/done"
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:padding="5dp"
-                            android:text="done"
-                            android:background="@drawable/layout_shape"
-                            android:textAllCaps="false"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="5dp"/>
+                        <!--<Button-->
+                            <!--android:id="@+id/done"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="30dp"-->
+                            <!--android:textColor="@color/colorPrimaryDark"-->
+                            <!--android:padding="5dp"-->
+                            <!--android:text="done"-->
+                            <!--android:background="@drawable/layout_shape"-->
+                            <!--android:textAllCaps="false"-->
+                            <!--android:layout_marginTop="10dp"-->
+                            <!--android:layout_marginBottom="5dp"/>-->
                     </LinearLayout>
 
                 </LinearLayout>

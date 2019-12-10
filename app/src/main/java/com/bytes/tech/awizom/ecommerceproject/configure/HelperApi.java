@@ -2,6 +2,9 @@ package com.bytes.tech.awizom.ecommerceproject.configure;
 
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
@@ -72,6 +75,7 @@ public class HelperApi extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
         }
     }
 
@@ -470,6 +474,91 @@ public class HelperApi extends AppCompatActivity {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
                 builder.url(AppConfig.BASE_URL_API + "/GetProductsListByBrandCAtagory/" +brandID);
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return json;
+        }
+        protected void onPostExecute(String result) {
+            try {
+                if (result.isEmpty()) {
+                } else {
+                    super.onPostExecute(result);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+
+
+    public static final class  PostCarts extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+
+
+            String productID = params[0];
+
+
+            String json = "";
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "/CartPost");
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                FormBody.Builder parameters = new FormBody.Builder();
+
+                parameters.add("ProductId", productID);
+                parameters.add("CreatedBy", "0");
+
+
+
+                builder.post(parameters.build());
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return json;
+
+        }
+        protected void onPostExecute(String result) {
+
+            try {
+                if (result.isEmpty()) {
+                } else {
+                    super.onPostExecute(result);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+    public static final class GetCartList extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String json = "";
+
+            try {
+
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "/GetCart" );
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 okhttp3.Response response = client.newCall(builder.build()).execute();

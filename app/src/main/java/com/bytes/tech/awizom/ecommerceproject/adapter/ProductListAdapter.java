@@ -13,7 +13,7 @@ import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.bytes.tech.awizom.ecommerceproject.activity.AddToCartActivity;
+import com.bytes.tech.awizom.ecommerceproject.activity.CartActivity;
 import com.bytes.tech.awizom.ecommerceproject.models.ProductModel;
 import java.util.List;
 import com.bytes.tech.awizom.ecommerceproject.R;
@@ -62,7 +62,7 @@ public class ProductListAdapter extends  RecyclerView.Adapter<ProductListAdapter
                 @Override
                 public void onClick(View v) {
 
-                    Intent intent = new Intent(mCtx, AddToCartActivity.class);
+                    Intent intent = new Intent(mCtx, CartActivity.class);
                     mCtx.startActivity(intent);
                 }
             });

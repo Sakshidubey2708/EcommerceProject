@@ -1,9 +1,11 @@
 package com.bytes.tech.awizom.ecommerceproject.adapter;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +13,14 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.bytes.tech.awizom.ecommerceproject.R;
 import com.bytes.tech.awizom.ecommerceproject.activity.ProductDetailsActivity;
 import com.bytes.tech.awizom.ecommerceproject.activity.SingleDetailView;
+import com.bytes.tech.awizom.ecommerceproject.configure.HelperApi;
 import com.bytes.tech.awizom.ecommerceproject.models.ProductModel;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -24,7 +30,9 @@ public class ProductDetailsAdapter extends BaseAdapter {
 
     private List<ProductModel> productModelList;
     private Context mContext;
-    private String skipdata="";
+    private String skipdata="",pid="";
+    private ProgressDialog progressDialog;
+    private String   result="";
 
     public ProductDetailsAdapter(ProductDetailsActivity newCustomerHome, List<ProductModel> categorylist) {
 
@@ -66,6 +74,7 @@ public class ProductDetailsAdapter extends BaseAdapter {
             final TextView mrp = (TextView) gridViewAndroid.findViewById(R.id.mrp);
             final TextView assured_price = (TextView) gridViewAndroid.findViewById(R.id.assuredMRP);
             final TextView discount = (TextView) gridViewAndroid.findViewById(R.id.discount);
+            progressDialog = new ProgressDialog(mContext);
 
             //  final ProgressBar progressBar = gridViewAndroid.findViewById(R.id.homeprogress);
             try {
@@ -75,10 +84,12 @@ public class ProductDetailsAdapter extends BaseAdapter {
                 mrp.setText("₹"+String.valueOf(productModelList.get(i).getMRP()));
                 assured_price.setText("₹" +String.valueOf(productModelList.get(i).getAssuredPrice()));
                 pID.setText(String.valueOf(productModelList.get(i).getProductId()));
-
+                pid= pID.getText().toString();
                 bookmark.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
+                       postCArt();
 //                        Intent intent = new Intent(mContext, SingleDetailView.class);
 //                        intent.putExtra("ID", pID.getText().toString());
 //                        mContext.startActivity(intent);
@@ -108,6 +119,32 @@ public class ProductDetailsAdapter extends BaseAdapter {
         return gridViewAndroid;
     }
 
+    private void postCArt() {
+        try {
+            progressDialog.setMessage("loading...");
+            progressDialog.show();
+
+            result =   new HelperApi.PostCarts().execute(pid.toString()).get();
+            try {
+                if (result.isEmpty()) {
+                    Log.d("Result Empty", "Error");
+                    progressDialog.dismiss();
+                } else {
+                    Gson gson = new Gson();
+                    Toast.makeText(mContext, "Added", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+                }
+
+            } catch (Exception e) {
+                Log.d("Result Empty", "Error");
+                e.printStackTrace();
+            }
+
+        } catch (Exception e) {
+            Log.d("Result Empty", "Error");
+            e.printStackTrace();
+        }
+    }
 
 
 }
