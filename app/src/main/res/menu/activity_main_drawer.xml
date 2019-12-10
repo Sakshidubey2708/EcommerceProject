@@ -22,6 +22,10 @@
             android:title="Products" />
 
         <item
+            android:id="@+id/nav_productdetails"
+            android:title="Product Details" />
+
+        <item
             android:id="@+id/nav_Search"
             android:title="Search" />
         <item

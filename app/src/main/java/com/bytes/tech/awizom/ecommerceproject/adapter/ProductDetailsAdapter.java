@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.bytes.tech.awizom.ecommerceproject.R;
 import com.bytes.tech.awizom.ecommerceproject.activity.ProductDetailsActivity;
@@ -56,23 +57,31 @@ public class ProductDetailsAdapter extends BaseAdapter {
             gridViewAndroid = inflater.inflate(R.layout.product_detail_adapter, null);
             TextView productnames = (TextView) gridViewAndroid.findViewById(R.id.product_name);
             TextView titlenames = (TextView) gridViewAndroid.findViewById(R.id.title_name);
-            final TextView discount = (TextView) gridViewAndroid.findViewById(R.id.discount);
+
             final TextView imglinkurl = gridViewAndroid.findViewById(R.id.imgLink);
-            final Button clickGo = gridViewAndroid.findViewById(R.id.go);
+            final ImageView bookmark = gridViewAndroid.findViewById(R.id.cartbpookmark);
+           // final Button clickGo = gridViewAndroid.findViewById(R.id.go);
             final TextView pID = (TextView) gridViewAndroid.findViewById(R.id.pid);
+
+            final TextView mrp = (TextView) gridViewAndroid.findViewById(R.id.mrp);
+            final TextView assured_price = (TextView) gridViewAndroid.findViewById(R.id.assuredMRP);
+            final TextView discount = (TextView) gridViewAndroid.findViewById(R.id.discount);
+
             //  final ProgressBar progressBar = gridViewAndroid.findViewById(R.id.homeprogress);
             try {
                 productnames.setText(productModelList.get(i).getProductName());
                 titlenames.setText(productModelList.get(i).getTitleName());
                 discount.setText(String.valueOf(productModelList.get(i).getTotalDiscounts()) +"%" + " " +"OFF");
+                mrp.setText("₹"+String.valueOf(productModelList.get(i).getMRP()));
+                assured_price.setText("₹" +String.valueOf(productModelList.get(i).getAssuredPrice()));
                 pID.setText(String.valueOf(productModelList.get(i).getProductId()));
 
-                clickGo.setOnClickListener(new View.OnClickListener() {
+                bookmark.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(mContext, SingleDetailView.class);
-                        intent.putExtra("ID", pID.getText().toString());
-                        mContext.startActivity(intent);
+//                        Intent intent = new Intent(mContext, SingleDetailView.class);
+//                        intent.putExtra("ID", pID.getText().toString());
+//                        mContext.startActivity(intent);
                     }
                 });
                 final Handler handler = new Handler();

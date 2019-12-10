@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.Toolbar;
 import com.bytes.tech.awizom.ecommerceproject.R;
 
-public class TabLyout extends AppCompatActivity {
+public class Tablayout extends AppCompatActivity {
 
 
     private Toolbar toolbar;

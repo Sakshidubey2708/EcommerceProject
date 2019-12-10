@@ -29,9 +29,9 @@
                 android:layout_width="300dp"
                 android:layout_height="300dp"
                 android:orientation="vertical"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="10dp">
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="8dp">
 
                 <ImageView
                     android:id="@+id/imageShow"
@@ -67,55 +67,100 @@
                     android:visibility="gone" />
 
             </RelativeLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <TextView
+        android:id="@+id/product_name"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_gravity="center|center_horizontal"
+        android:fontFamily="serif"
+        android:gravity="fill_vertical"
+        android:text="Product NAme"
+        android:textColor="@color/grey_darks"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:paddingLeft="5dp"
+        android:layout_weight="1"/>
+    <ImageView
+        android:id="@+id/cartbpookmark"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:padding="5dp"
+        android:src="@drawable/ic_bookmark_black_24dp"/>
+</LinearLayout>
 
-            <TextView
-                android:id="@+id/product_name"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_gravity="right"
-                android:fontFamily="serif"
-                android:gravity="right"
-                android:text="Product NAme"
-                android:textColor="@color/blue"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:padding="5dp"/>
             <TextView
                 android:id="@+id/title_name"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:textSize="16sp"
+                android:textSize="13sp"
                 android:fontFamily="serif"
                 android:textStyle="bold"
-                android:textColor="@color/blue"
-                android:layout_gravity="right"
-                android:gravity="right"
-                android:padding="5dp"
+                android:textColor="@color/grey"
+                android:layout_gravity="center|center_horizontal"
+                android:gravity="fill_vertical"
+                android:paddingLeft="5dp"
                 android:hint="Title Name"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/assuredMRP"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:textSize="10sp"
+                android:fontFamily="serif"
+                android:textStyle="bold"
+                android:paddingLeft="5dp"
+                android:textColor="@color/grey_darks"
+                android:layout_gravity="center|center_horizontal"
+                android:gravity="fill_vertical"
+                android:hint="Price"
+                android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/mrp"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:textSize="10sp"
+                android:fontFamily="serif"
+                android:textStyle="bold"
+                android:paddingLeft="3dp"
+                android:textColor="@color/grey_lights"
+                android:layout_gravity="center|center_horizontal"
+                android:gravity="fill_vertical"
+                android:hint="MRP"
+                android:layout_weight="1"/>
             <TextView
                 android:id="@+id/discount"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:textSize="15sp"
+                android:textSize="10sp"
                 android:fontFamily="serif"
                 android:textStyle="bold"
-                android:padding="5dp"
+                android:paddingLeft="2dp"
                 android:textColor="@color/blue"
-                android:layout_gravity="right"
-                android:gravity="right"
-                android:hint="Discount"/>
+                android:layout_gravity="center|center_horizontal"
+                android:gravity="fill_vertical"
+                android:hint="Discount"
+                android:layout_weight="1"/>
+        </LinearLayout>
 
-            <Button
-                android:id="@+id/go"
-                android:layout_width="100dp"
-                android:layout_height="30dp"
-                android:textColor="@color/white"
-                android:textSize="13sp"
-                android:layout_gravity="right"
-                android:padding="5dp"
-                android:text="go!"
-                android:textAllCaps="false"
-                android:background="@drawable/button_shape"/>
+            <!--<Button-->
+                <!--android:id="@+id/go"-->
+                <!--android:layout_width="100dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:textSize="13sp"-->
+                <!--android:layout_gravity="center|center_horizontal"-->
+                <!--android:padding="5dp"-->
+                <!--android:text="go!"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:background="@drawable/button_shape"/>-->
         </LinearLayout>
 
     </android.support.v7.widget.CardView>

@@ -54,8 +54,8 @@ public class ViewSubCatagoryActivity extends AppCompatActivity {
         toolbar.setTitleTextAppearance(getApplicationContext(), R.style.styleA);
         toolbar.setTitleTextColor(Color.WHITE);
 
-        recyclerView = findViewById(R.id.recyclerViewItems);
-        mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayoutItems);
+        recyclerView = findViewById(R.id.recyclerView);
+        mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
@@ -63,14 +63,14 @@ public class ViewSubCatagoryActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 // Refresh items
-                getMainCatagories();
+                getSubcatagories();
             }
         });
-        getMainCatagories();
+        getSubcatagories();
 
     }
 
-    private void getMainCatagories() {
+    private void getSubcatagories() {
 
 
         try {

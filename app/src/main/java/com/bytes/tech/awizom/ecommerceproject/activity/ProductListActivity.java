@@ -32,7 +32,12 @@ public class ProductListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recyclerview_list_layout);
-        initview();
+        try {
+            initview();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     private void initview() {
@@ -52,8 +57,8 @@ public class ProductListActivity extends AppCompatActivity {
         toolbar.setTitleTextAppearance(getApplicationContext(), R.style.styleA);
         toolbar.setTitleTextColor(Color.WHITE);
 
-        recyclerView = findViewById(R.id.recyclerViewItems);
-        mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayoutItems);
+        recyclerView = findViewById(R.id.recyclerView);
+        mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 

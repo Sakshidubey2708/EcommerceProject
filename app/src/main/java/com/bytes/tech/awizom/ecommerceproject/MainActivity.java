@@ -24,6 +24,7 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.bytes.tech.awizom.ecommerceproject.activity.BrandCatagoriesActivity;
+import com.bytes.tech.awizom.ecommerceproject.activity.ProductDetailsActivity;
 import com.bytes.tech.awizom.ecommerceproject.activity.ProductListActivity;
 import com.bytes.tech.awizom.ecommerceproject.activity.SearchActivity;
 import com.bytes.tech.awizom.ecommerceproject.activity.SignInActivity;
@@ -343,7 +344,12 @@ public class MainActivity extends AppCompatActivity
             intent = new Intent(this, ProductListActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_out, R.anim.slide_in);
-        }else if (id == R.id.nav_login) {
+        }else if (id == R.id.nav_productdetails) {
+            intent = new Intent(this, ProductDetailsActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_out, R.anim.slide_in);
+        }
+        else if (id == R.id.nav_login) {
             intent = new Intent(this, SignInActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_out, R.anim.slide_in);

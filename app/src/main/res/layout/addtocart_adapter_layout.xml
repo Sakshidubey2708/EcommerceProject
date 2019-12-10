@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="false">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="8dp"
+                android:gravity="center|center_horizontal"
+                android:background="@color/white"
+                android:layout_margin="5dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_close_black_24dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1">
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:src="@mipmap/img4"
+                            android:layout_gravity="center_horizontal|center"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_horizontal|center">
+                        <TextView
+                            android:id="@+id/catagory_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="Catagory"
+                            android:textSize="17sp"
+                            android:textColor="@color/purple"
+                            android:layout_weight="1"
+                            android:padding="5dp"
+                            android:layout_gravity="center"
+                            android:gravity="left"/>
+
+                        <TextView
+                        android:id="@+id/price"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:gravity="left"
+                        android:padding="5dp"
+                        android:layout_gravity="center"
+                        android:textColor="@color/orange_yellowihs"
+                        android:text="1233/-"/>
+
+
+                        <TextView
+                            android:id="@+id/catagoryID"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:visibility="gone"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+                            <Button
+                                android:id="@+id/minus"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:textColor="@color/white"
+                                android:background="@color/colorPrimaryDark"
+                                android:text="-"
+                                />
+                            <TextView
+                                android:layout_width="40dp"
+                                android:layout_height="30dp"
+                                android:textColor="@color/white"
+                                android:background="@color/colorPrimaryDark"
+                                android:text="1"
+                                android:gravity="center"
+                                />
+                            <Button
+                                android:id="@+id/add"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:textColor="@color/white"
+                                android:background="@color/colorPrimaryDark"
+                                android:text="+"
+                                />
+                            <TextView
+                                android:id="@+id/calculatePrice"
+                                android:layout_width="40dp"
+                                android:layout_height="30dp"
+                                android:textColor="@color/black"
+                                android:hint="100/-"
+                                android:gravity="center"
+                                android:layout_marginLeft="4dp"/>
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/done"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:padding="5dp"
+                            android:text="done"
+                            android:background="@drawable/layout_shape"
+                            android:textAllCaps="false"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="5dp"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </RelativeLayout>
+</LinearLayout>

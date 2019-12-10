@@ -1,6 +1,7 @@
 package com.bytes.tech.awizom.ecommerceproject.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -9,7 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
+import android.widget.Button;
 import android.widget.TextView;
+
+import com.bytes.tech.awizom.ecommerceproject.activity.AddToCartActivity;
 import com.bytes.tech.awizom.ecommerceproject.models.ProductModel;
 import java.util.List;
 import com.bytes.tech.awizom.ecommerceproject.R;
@@ -54,6 +58,14 @@ public class ProductListAdapter extends  RecyclerView.Adapter<ProductListAdapter
             holder.brandId.setText(String.valueOf(catagoriesModel.getTotalDiscounts()));
             holder.categoryId.setText(String.valueOf(catagoriesModel.getTotalDiscounts()));
             holder.mainId.setText(String.valueOf(catagoriesModel.getMainCatId()));
+            holder.book.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent = new Intent(mCtx, AddToCartActivity.class);
+                    mCtx.startActivity(intent);
+                }
+            });
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -73,6 +85,7 @@ public class ProductListAdapter extends  RecyclerView.Adapter<ProductListAdapter
         private List<ProductModel> productModelList;
         private ProductModel productModel;
         private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
+        private Button book;
 
         public OrderItemViewHolder(View view, Context mCtx, List<ProductModel> OrderNewOnes) {
             super(view);
@@ -90,6 +103,7 @@ public class ProductListAdapter extends  RecyclerView.Adapter<ProductListAdapter
             brandId = view.findViewById(R.id.BrandId);
             categoryId = view.findViewById(R.id.CategoryId);
             mainId = view.findViewById(R.id.mainID);
+            book = view.findViewById(R.id.productBook);
 
             final Handler handler = new Handler();
             final int[] colors = {Color.BLUE, Color.RED};
