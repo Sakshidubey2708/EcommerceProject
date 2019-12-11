@@ -51,7 +51,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.google_logoin_activity);
 
-
         signInButton = findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
         signInButton.setOnClickListener(this);
@@ -61,7 +60,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 .build();
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
         emails = findViewById(R.id.email);
         passWord = findViewById(R.id.pasword);
         contact = findViewById(R.id.mobile);
@@ -97,20 +95,14 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
         AccountManager am = AccountManager.get(this);
         Account[] accounts = am.getAccounts();
-
         ArrayList<String> googleAccounts = new ArrayList<String>();
         for (Account ac : accounts) {
             String acname = ac.name;
             String actype = ac.type;
             // Take your time to look at all available accounts
             Log.w(TAG, "Account : " +  acname + ", " + actype);
-
         }
-
     }
-
-
-
 
     private void togglePassVisability() {
         if (isPasswordVisible) {
@@ -143,7 +135,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
@@ -167,13 +158,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            // Signed in successfully, show authenticated UI.
             updateUI(account);
-
-
         } catch (ApiException e) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
             updateUI(null);
         }
@@ -181,13 +167,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     private void updateUI(GoogleSignInAccount account) {
         if (account != null) {
-
             Toast.makeText(this,"not null", Toast.LENGTH_LONG).show();
         } else {
-
             Toast.makeText(this,"null", Toast.LENGTH_LONG).show();
         }
-
-
     }
+
 }
