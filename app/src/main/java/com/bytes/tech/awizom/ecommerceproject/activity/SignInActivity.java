@@ -3,10 +3,12 @@ package com.bytes.tech.awizom.ecommerceproject.activity;
 import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
@@ -15,36 +17,40 @@ import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bytes.tech.awizom.ecommerceproject.R;
-import com.google.android.gms.auth.GoogleAuthUtil;
+import com.bytes.tech.awizom.ecommerceproject.configure.AccountControlerHelper;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.AccountPicker;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
 
     SignInButton signInButton;
     GoogleSignInClient mGoogleSignInClient;
     private static final int RC_SIGN_IN = 007;
-    String TAG = "Check";
+    String TAG = "Check",result="";
 
     EditText emails, passWord, contact;
     TextView paswdHidShows;
+    Button login_click;
     String Check;
     private final static int ALL_PERMISSIONS_RESULT = 107;
     private final static int IMAGE_RESULT = 200;
     private static int TIMER = 300;
     private boolean isPasswordVisible;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +58,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.google_logoin_activity);
 
         signInButton = findViewById(R.id.sign_in_button);
+        login_click = findViewById(R.id.loginbtn);
+        login_click.setOnClickListener(this);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
         signInButton.setOnClickListener(this);
 
@@ -64,13 +72,14 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         passWord = findViewById(R.id.pasword);
         contact = findViewById(R.id.mobile);
         paswdHidShows = findViewById(R.id.paswdHidShow);
+        progressDialog = new ProgressDialog(this);
         paswdHidShows.setOnClickListener(this);
 
         emails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent googlePicker = AccountPicker.newChooseAccountIntent(null, null, new String[]{GoogleAuthUtil.GOOGLE_ACCOUNT_TYPE}, true, null, null, null, null);
-                startActivityForResult(googlePicker, 201);
+//                Intent googlePicker = AccountPicker.newChooseAccountIntent(null, null, new String[]{GoogleAuthUtil.GOOGLE_ACCOUNT_TYPE}, true, null, null, null, null);
+//                startActivityForResult(googlePicker, 201);
             }
         });
 
@@ -127,15 +136,50 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.sign_in_button:
-                signIn();
+                signInWithGoogle();
                 break;
             case R.id.paswdHidShow:
                 togglePassVisability();
                 break;
+
+            case R.id.loginbtn:
+                loginEvent();
+                break;
         }
     }
 
-    private void signIn() {
+    private void loginEvent() {
+
+        try {
+            progressDialog.setMessage("loading...");
+            progressDialog.show();
+            result = new AccountControlerHelper.PostLogin().execute(emails.getText().toString(),passWord.getText().toString()).get();
+            if(result.isEmpty()){
+                progressDialog.dismiss();
+                result = new AccountControlerHelper.PostLogin().execute(emails.getText().toString(),passWord.getText().toString()).get();
+            }else {
+                try {
+                    progressDialog.dismiss();
+                    Snackbar.make(getWindow().getDecorView().getRootView(), result.toString(), Snackbar.LENGTH_LONG).show();
+                    Gson gson = new Gson();
+
+                        Toast.makeText(SignInActivity.this, "User Id Password Incorrect", Toast.LENGTH_SHORT).show();
+
+
+                }catch (Exception e){
+
+                }
+
+            }
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void signInWithGoogle() {
+
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -151,7 +195,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             handleSignInResult(task);
         }else if (requestCode == 201 && resultCode == RESULT_OK) {
             String accountName = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
-            emails.setText(accountName);
+            //emails.setText(accountName);
         }
     }
 

@@ -547,12 +547,13 @@ public class HelperApi extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
             String json = "";
+            String userID = strings[0];
 
             try {
 
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "/GetCart" );
+                builder.url(AppConfig.BASE_URL_API + "/GetCart/"+userID );
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 okhttp3.Response response = client.newCall(builder.build()).execute();

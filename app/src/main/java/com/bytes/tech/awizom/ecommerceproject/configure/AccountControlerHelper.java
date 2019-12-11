@@ -29,9 +29,6 @@ public class AccountControlerHelper extends AppCompatActivity {
 
                 parameters.add("UserName", UserName);
                 parameters.add("Password", Password);
-
-
-
                 builder.post(parameters.build());
                 okhttp3.Response response = client.newCall(builder.build()).execute();
                 if (response.isSuccessful()) {
