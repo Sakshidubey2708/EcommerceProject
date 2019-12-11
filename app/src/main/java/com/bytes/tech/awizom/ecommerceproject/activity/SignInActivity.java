@@ -23,6 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.bytes.tech.awizom.ecommerceproject.R;
 import com.bytes.tech.awizom.ecommerceproject.configure.AccountControlerHelper;
+import com.bytes.tech.awizom.ecommerceproject.configure.SharedPrefManager;
+import com.bytes.tech.awizom.ecommerceproject.models.UserLogin;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -160,11 +162,15 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             }else {
                 try {
                     progressDialog.dismiss();
-                    Snackbar.make(getWindow().getDecorView().getRootView(), result.toString(), Snackbar.LENGTH_LONG).show();
                     Gson gson = new Gson();
+                    UserLogin jsonbody = gson.fromJson(result, UserLogin.class);
+                    UserLogin us = new UserLogin();
+                    us.UserName = jsonbody.UserName;
+                    us.UserID = jsonbody.UserID;
+                    SharedPrefManager.getInstance(getApplicationContext()).userLogin(us);
 
-                        Toast.makeText(SignInActivity.this, "User Id Password Incorrect", Toast.LENGTH_SHORT).show();
-
+                    Snackbar.make(getWindow().getDecorView().getRootView(),  "Login Successfull", Snackbar.LENGTH_LONG).show();
+                    Toast.makeText(SignInActivity.this, SharedPrefManager.getInstance(this).getUser().getUserName(), Toast.LENGTH_SHORT).show();
 
                 }catch (Exception e){
 

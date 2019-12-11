@@ -41,6 +41,7 @@ import com.bytes.tech.awizom.ecommerceproject.adapter.SliderAdapter;
 import com.bytes.tech.awizom.ecommerceproject.adapter.SubCatagoryAdapter;
 import com.bytes.tech.awizom.ecommerceproject.adapter.TypeOfCatagoryAdapter;
 import com.bytes.tech.awizom.ecommerceproject.configure.HelperApi;
+import com.bytes.tech.awizom.ecommerceproject.configure.SharedPrefManager;
 import com.bytes.tech.awizom.ecommerceproject.models.CatagoriesModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -402,6 +403,9 @@ public class MainActivity extends AppCompatActivity
             intent = new Intent(this, SignInActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_out, R.anim.slide_in);
+        }
+        else if (id == R.id.nav_logout) {
+            SharedPrefManager.getInstance(this).logout();
         }
 
 

@@ -31,6 +31,9 @@
         <item
             android:id="@+id/nav_login"
             android:title="Login" />
+        <item
+            android:id="@+id/nav_logout"
+            android:title="logou" />
     </group>
 
     <item android:title="">
