@@ -35,7 +35,7 @@
         android:layout_centerHorizontal="true"
         android:background="@color/white"
         android:layout_marginBottom="10dp"
-        android:visibility="gone">
+        android:visibility="visible">
         <EditText
             android:id="@+id/mobile"
             android:layout_width="match_parent"

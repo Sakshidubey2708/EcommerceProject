@@ -2,8 +2,6 @@ package com.bytes.tech.awizom.ecommerceproject.configure;
 
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -181,7 +179,6 @@ public class HelperApi extends AppCompatActivity {
         }
     }
 
-
     public static final class GetSingleMainCategoriesList extends AsyncTask<String, Void, String> {
 
         @Override
@@ -321,7 +318,6 @@ public class HelperApi extends AppCompatActivity {
             }
         }
     }
-
 
     public static final class GetSingleProductList extends AsyncTask<String, Void, String> {
 
@@ -498,9 +494,6 @@ public class HelperApi extends AppCompatActivity {
         }
     }
 
-
-
-
     public static final class  PostCarts extends AsyncTask<String, Void, String> {
 
         @Override
@@ -548,6 +541,7 @@ public class HelperApi extends AppCompatActivity {
 
         }
     }
+
     public static final class GetCartList extends AsyncTask<String, Void, String> {
 
         @Override

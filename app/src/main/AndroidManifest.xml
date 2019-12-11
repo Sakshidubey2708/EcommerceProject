@@ -80,10 +80,10 @@
         <activity
             android:name=".activity.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity android:name=".activity.SearchActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -99,7 +99,7 @@
             <!--</intent-filter>-->
         </activity>
         <activity
-            android:name=".activity.example">
+            android:name=".activity.VedioExample">
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN" />-->
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
@@ -116,6 +116,15 @@
         <activity
             android:name=".activity.Tablayout">
 
+        </activity>
+        <activity
+            android:name=".activity.MobilenumberExample"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

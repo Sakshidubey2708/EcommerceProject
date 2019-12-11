@@ -11,7 +11,7 @@ import android.widget.VideoView;
 
 import com.bytes.tech.awizom.ecommerceproject.R;
 
-public class example extends AppCompatActivity {
+public class VedioExample extends AppCompatActivity {
     private Button btnonce, btncontinuously, btnstop;
     private VideoView vv;
     private MediaController mediacontroller;

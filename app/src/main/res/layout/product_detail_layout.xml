@@ -47,7 +47,7 @@
             android:gravity="left"
             android:layout_alignParentLeft="true"
             android:paddingLeft="15dp"
-            android:layout_marginTop="40dp"/>
+            android:layout_marginTop="50dp"/>
 
         <GridView
             android:id="@+id/gridviewproduct"

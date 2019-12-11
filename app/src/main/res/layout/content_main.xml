@@ -26,13 +26,31 @@
                 android:layout_height="200dp"
                 android:focusedByDefault="true"
                 android:orientation="horizontal">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:orientation="vertical">
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-                    <ImageView
-                        android:id="@+id/fruitImage"
-                        android:layout_width="match_parent"
-                        android:layout_height="500dp"
-                        android:layout_gravity="center"
-                        android:src="@mipmap/img"/>
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerInParent="true"
+                    app:tabBackground="@drawable/indicator_selector"
+                    app:tabGravity="center"
+                    app:tabIndicatorHeight="0dp" />
+                </RelativeLayout>
+                    <!--<ImageView-->
+                        <!--android:id="@+id/fruitImage"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="500dp"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:src="@mipmap/img"/>-->
 
             </LinearLayout>
 
@@ -94,9 +112,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Items"
-                            android:textColor="@color/black"
+                            android:textColor="@color/grey_darks"
                             android:textStyle="bold"
-                            android:textSize="18sp"
+                            android:textSize="21sp"
                             android:gravity="left"
                             android:layout_alignParentLeft="true"
                             android:paddingLeft="15dp"
@@ -157,9 +175,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Brands"
-                            android:textColor="@color/black"
+                            android:textColor="@color/grey_darks"
                             android:textStyle="bold"
-                            android:textSize="18sp"
+                            android:textSize="21sp"
                             android:gravity="left"
                             android:layout_alignParentLeft="true"
                             android:paddingLeft="15dp"
@@ -205,9 +223,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Category"
-                            android:textColor="@color/black"
+                            android:textColor="@color/grey_darks"
                             android:textStyle="bold"
-                            android:textSize="18sp"
+                            android:textSize="21sp"
                             android:gravity="left"
                             android:layout_alignParentLeft="true"
                             android:paddingLeft="15dp"

@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,9 +23,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bytes.tech.awizom.ecommerceproject.activity.BrandCatagoriesActivity;
+import com.bytes.tech.awizom.ecommerceproject.activity.CartActivity;
 import com.bytes.tech.awizom.ecommerceproject.activity.ProductDetailsActivity;
 import com.bytes.tech.awizom.ecommerceproject.activity.ProductListActivity;
 import com.bytes.tech.awizom.ecommerceproject.activity.SearchActivity;
@@ -33,6 +37,7 @@ import com.bytes.tech.awizom.ecommerceproject.activity.ViewSubCatagoryActivity;
 import com.bytes.tech.awizom.ecommerceproject.activity.ViewTypeCatagoriesActivity;
 import com.bytes.tech.awizom.ecommerceproject.adapter.BrandCatagoryAdapter;
 import com.bytes.tech.awizom.ecommerceproject.adapter.CatagoryGridViewAdapter;
+import com.bytes.tech.awizom.ecommerceproject.adapter.SliderAdapter;
 import com.bytes.tech.awizom.ecommerceproject.adapter.SubCatagoryAdapter;
 import com.bytes.tech.awizom.ecommerceproject.adapter.TypeOfCatagoryAdapter;
 import com.bytes.tech.awizom.ecommerceproject.configure.HelperApi;
@@ -40,7 +45,12 @@ import com.bytes.tech.awizom.ecommerceproject.models.CatagoriesModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -62,6 +72,13 @@ public class MainActivity extends AppCompatActivity
     SwipeRefreshLayout mSwipeRefreshLayoutBrand;
 
     private TextView offerTextViews;
+    ViewPager viewPager;
+    TabLayout indicator;
+    List<Integer> imglist;
+    List<Integer> color;
+    List<String> colorName;
+
+    private ImageView cart;
 
 //    private VideoView vv;
 //    private MediaController mediacontroller;
@@ -100,6 +117,9 @@ public class MainActivity extends AppCompatActivity
     private void initview() {
         gridView = (GridView) findViewById(R.id.gridview);
         offerTextViews =findViewById(R.id.offerTextView);
+        viewPager = findViewById(R.id.viewPager);
+        indicator = findViewById(R.id.indicator);
+        cart = findViewById(R.id.addcart);
 
         recyclerView = findViewById(R.id.recyclerViewItems);
         mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayoutItems);
@@ -125,6 +145,32 @@ public class MainActivity extends AppCompatActivity
                 getAllSubCatagory();
             }
         });
+
+
+        cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, CartActivity.class);
+                startActivity(intent);
+            }
+        });
+        color = new ArrayList<>();
+        imglist = new ArrayList<Integer>();
+        imglist.add(R.drawable.ec);
+        imglist.add(R.drawable.m1);
+        imglist.add(R.drawable.ic_apps_black_24dp);
+
+        color.add(Color.RED);
+        color.add(Color.GREEN);
+        color.add(Color.BLUE);
+        colorName = new ArrayList<>();
+        colorName.add("Red");
+        colorName.add("Green");
+        colorName.add("Red");
+        viewPager.setAdapter(new SliderAdapter(this, color, colorName, imglist));
+        indicator.setupWithViewPager(viewPager, true);
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new SliderTimer(), 4000, 6000);
 
 //        recyclerViewProduct = findViewById(R.id.recyclerViewProduct);
 //        mSwipeRefreshLayoutProduct = findViewById(R.id.swipeRefreshLayoutProduct);
@@ -206,6 +252,7 @@ public class MainActivity extends AppCompatActivity
 
         }
     }
+
     private void getCategoryList() {
         String catalogname = "Home Cleaning & Repairs";
         try {
@@ -225,6 +272,7 @@ public class MainActivity extends AppCompatActivity
             e.printStackTrace();
         }
     }
+
     private void getBrandCatagory() {
         try {
             mSwipeRefreshLayoutBrand.setRefreshing(true);
@@ -250,6 +298,7 @@ public class MainActivity extends AppCompatActivity
             e.printStackTrace();
         }
     }
+
     private void getProductList() {
 //        try {
 //            mSwipeRefreshLayoutProduct.setRefreshing(true);
@@ -359,5 +408,24 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private class SliderTimer extends TimerTask {
+        @Override
+        public void run() {
+            if (this != null) {
+                MainActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (viewPager.getCurrentItem() < color.size() - 1) {
+                            viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+                        } else {
+                            viewPager.setCurrentItem(0);
+                        }
+                    }
+                });
+            }
+        }
+
     }
 }

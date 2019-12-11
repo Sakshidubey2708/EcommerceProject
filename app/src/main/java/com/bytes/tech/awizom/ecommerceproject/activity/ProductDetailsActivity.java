@@ -5,20 +5,13 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
-
 import com.bytes.tech.awizom.ecommerceproject.R;
-import com.bytes.tech.awizom.ecommerceproject.adapter.CartAdapter;
 import com.bytes.tech.awizom.ecommerceproject.adapter.ProductDetailsAdapter;
 import com.bytes.tech.awizom.ecommerceproject.configure.HelperApi;
-import com.bytes.tech.awizom.ecommerceproject.models.CartModel;
 import com.bytes.tech.awizom.ecommerceproject.models.ProductModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -30,14 +23,11 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
     GridView gridView;
     private Intent intent;
-    private String result="";
+    private String result="",maincatID="";
     List<ProductModel> productModelList;
     private ProgressDialog progressDialog;
     private ImageView addcarts;
 
-    RecyclerView recyclerView;
-    List<CartModel> cartModels;
-    SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,34 +55,48 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
         gridView = (GridView) findViewById(R.id.gridviewproduct);
         addcarts =  (ImageView) findViewById(R.id.cartviews);
+        maincatID = getIntent().getStringExtra("ID");
 
         progressDialog = new ProgressDialog(this);
 
-        getProductList();
 
+        //getProductList();
         addcarts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getCArt();
-//                Intent intent = new Intent(ProductDetailsActivity.this, CartActivity.class);
-//
-//                        startActivity(intent);
+                Intent intent = new Intent(ProductDetailsActivity.this, CartActivity.class);
+                startActivity(intent);
             }
         });
 
-        recyclerView = findViewById(R.id.recyclerViewCart);
-        mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayoutCart);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        if(maincatID.isEmpty()){
+            getProductList();
+        }else {
+            getChooseProductList(maincatID.toString());
+        }
+    }
 
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // Refresh items
-                getCArt();
+    private void getChooseProductList(String catIDs) {
+        try {
+            progressDialog.setMessage("loading...");
+            progressDialog.show();
+            result = new HelperApi.GetSingleMainCategoriesList().execute(catIDs.toString()).get();
+            if (result.isEmpty()) {
+                progressDialog.dismiss();
+                result = new HelperApi.GetSingleMainCategoriesList().execute().get();
+            } else {
+                progressDialog.dismiss();
+                Gson gson = new Gson();
+                Type listType = new TypeToken<List<ProductModel>>() {
+                }.getType();
+                productModelList = new Gson().fromJson(result, listType);
+                ProductDetailsAdapter productDetailsAdapter = new ProductDetailsAdapter(ProductDetailsActivity.this, productModelList);
+                gridView.setAdapter(productDetailsAdapter);
+
             }
-        });
-        getCArt();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void getProductList() {
@@ -116,34 +120,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private void getCArt() {
-        try {
-            mSwipeRefreshLayout.setRefreshing(true);
-            result = new HelperApi.GetCartList().execute().get();
-            if (result.isEmpty()) {
-                mSwipeRefreshLayout.setRefreshing(false);
-            } else {
-                if (result.isEmpty()) {
-                    mSwipeRefreshLayout.setRefreshing(false);
-                } else {
-                    /*   Toast.makeText(getApplicationContext(),result+"",Toast.LENGTH_LONG).show();*/
-                    Gson gson = new Gson();
-                    Type listType = new TypeToken<List<CartModel>>() {
-                    }.getType();
-                    cartModels = new Gson().fromJson(result, listType);
-                    Log.d("Error", cartModels.toString());
-                    CartAdapter cartAdapter= new CartAdapter(ProductDetailsActivity.this, cartModels);
-                    recyclerView.setAdapter(cartAdapter);
-                    mSwipeRefreshLayout.setRefreshing(false);
-                }
-            }
-        } catch (Exception e) {
-            mSwipeRefreshLayout.setRefreshing(false);
-            e.printStackTrace();
-        }
-
     }
 }
 
