@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.bytes.tech.awizom.ecommerceproject.MainActivity;
 import com.bytes.tech.awizom.ecommerceproject.R;
+import com.bytes.tech.awizom.ecommerceproject.configure.SharedPrefManager;
 
 public class SplashActivity extends AppCompatActivity {
     boolean connected = false;
@@ -28,6 +29,8 @@ public class SplashActivity extends AppCompatActivity {
     private void initview() {
        checkInternet();
     }
+
+
     private void checkInternet() {
         try {
             ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -39,9 +42,16 @@ public class SplashActivity extends AppCompatActivity {
                         @Override
                         public void run() {
 
-                            Intent mainIntent = new Intent(SplashActivity.this,MainActivity.class);
-                            SplashActivity.this.startActivity(mainIntent);
-                            SplashActivity.this.finish();
+                            if(!(SharedPrefManager.getInstance(SplashActivity.this).getUser().getUserID().equals(0))){
+                                Intent mainIntent = new Intent(SplashActivity.this,MainActivity.class);
+                                SplashActivity.this.startActivity(mainIntent);
+                                SplashActivity.this.finish();
+                            }else {
+                                Intent mainIntent = new Intent(SplashActivity.this,SignInActivity.class);
+                                SplashActivity.this.startActivity(mainIntent);
+                                SplashActivity.this.finish();
+                            }
+
                         }
                     }, SPLASH_DISPLAY_DURATION);
 

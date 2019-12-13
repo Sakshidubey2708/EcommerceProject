@@ -1,5 +1,6 @@
 package com.bytes.tech.awizom.ecommerceproject.adapter;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -17,8 +18,10 @@ import android.widget.Toast;
 
 import com.bytes.tech.awizom.ecommerceproject.R;
 import com.bytes.tech.awizom.ecommerceproject.activity.ProductDetailsActivity;
+import com.bytes.tech.awizom.ecommerceproject.activity.SignInActivity;
 import com.bytes.tech.awizom.ecommerceproject.activity.SingleDetailView;
 import com.bytes.tech.awizom.ecommerceproject.configure.HelperApi;
+import com.bytes.tech.awizom.ecommerceproject.configure.SharedPrefManager;
 import com.bytes.tech.awizom.ecommerceproject.models.ProductModel;
 import com.google.gson.Gson;
 
@@ -27,7 +30,6 @@ import java.util.List;
 public class ProductDetailsAdapter extends BaseAdapter {
 
     //  private final String[] productModelList;
-
     private List<ProductModel> productModelList;
     private Context mContext;
     private String skipdata="",pid="";
@@ -89,7 +91,13 @@ public class ProductDetailsAdapter extends BaseAdapter {
                     @Override
                     public void onClick(View v) {
 
-                       postCArt();
+                        if(SharedPrefManager.getInstance(mContext).getUser().getUserID().isEmpty()){
+                            showCustomDialog(v);
+                        }else {
+                            postCArt();
+                        }
+
+
 //                        Intent intent = new Intent(mContext, SingleDetailView.class);
 //                        intent.putExtra("ID", pID.getText().toString());
 //                        mContext.startActivity(intent);
@@ -118,7 +126,28 @@ public class ProductDetailsAdapter extends BaseAdapter {
 
         return gridViewAndroid;
     }
+    private void showCustomDialog(View v) {
+        //before inflating the custom alert dialog layout, we will get the current activity viewgroup
+        ViewGroup viewGroup = v.findViewById(android.R.id.content);
+        //then we will inflate the custom alert dialog xml that we created
+        View dialogView = LayoutInflater.from(mContext).inflate(R.layout.bottom_slide_dailog, viewGroup, false);
+        //Now we need an AlertDialog.Builder object
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        //setting the view of the builder to our custom view that we already inflated
+        builder.setView(dialogView);
 
+        TextView loginview = dialogView.findViewById(R.id.loginClickevent);
+        loginview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(mContext, SignInActivity.class);
+                mContext.startActivity(i);
+            }
+        });
+        //finally creating the alert dialog and displaying it
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
     private void postCArt() {
         try {
             progressDialog.setMessage("loading...");

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bytes.tech.awizom.ecommerceproject.MainActivity;
 import com.bytes.tech.awizom.ecommerceproject.R;
 import com.bytes.tech.awizom.ecommerceproject.activity.ProductDetailsActivity;
+import com.bytes.tech.awizom.ecommerceproject.activity.ViewSubCatagoryActivity;
 import com.bytes.tech.awizom.ecommerceproject.models.CatagoriesModel;
 import java.util.List;
 
@@ -59,16 +60,17 @@ public class CatagoryGridViewAdapter extends BaseAdapter {
 
             //  final ProgressBar progressBar = gridViewAndroid.findViewById(R.id.homeprogress);
             try {
+                textViewAndroid.setText(catalogNameList.get(i).getMainCatName());
+                catagoryIDss.setText(String.valueOf(catalogNameList.get(i).getMainCatId()));
                 cardView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(mContext, ProductDetailsActivity.class);
+                        Intent intent = new Intent(mContext, ViewSubCatagoryActivity.class);
                         intent.putExtra("ID",catagoryIDss.getText().toString());
                         mContext.startActivity(intent);
                     }
                 });
-                textViewAndroid.setText(catalogNameList.get(i).getMainCatName());
-                catagoryIDss.setText(String.valueOf(catalogNameList.get(i).getMainCatId()));
+
             } catch (Exception e) {
                 e.printStackTrace();
             }

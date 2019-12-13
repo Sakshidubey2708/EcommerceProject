@@ -214,7 +214,7 @@ public class HelperApi extends AppCompatActivity {
         }
     }
 
-    public static final class GetSingleSubCategoriesList extends AsyncTask<String, Void, String> {
+    public static final class GetSubCategoriesListByMAinCAtID extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... strings) {
@@ -224,7 +224,7 @@ public class HelperApi extends AppCompatActivity {
 
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "/GetSubCategoriessList/" + mID);
+                builder.url(AppConfig.BASE_URL_API + "/GetSelectedMainCatagories/" + mID);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 okhttp3.Response response = client.newCall(builder.build()).execute();

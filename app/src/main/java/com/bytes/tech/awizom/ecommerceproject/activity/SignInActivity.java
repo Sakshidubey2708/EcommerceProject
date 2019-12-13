@@ -21,6 +21,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bytes.tech.awizom.ecommerceproject.MainActivity;
 import com.bytes.tech.awizom.ecommerceproject.R;
 import com.bytes.tech.awizom.ecommerceproject.configure.AccountControlerHelper;
 import com.bytes.tech.awizom.ecommerceproject.configure.SharedPrefManager;
@@ -172,6 +174,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                     Snackbar.make(getWindow().getDecorView().getRootView(),  "Login Successfull", Snackbar.LENGTH_LONG).show();
                     Toast.makeText(SignInActivity.this, SharedPrefManager.getInstance(this).getUser().getUserName(), Toast.LENGTH_SHORT).show();
 
+                    Intent i = new Intent(this, MainActivity.class);
+                    startActivity(i);
                 }catch (Exception e){
 
                 }

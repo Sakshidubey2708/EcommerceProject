@@ -69,11 +69,17 @@ public class ProductDetailsActivity extends AppCompatActivity {
             }
         });
 
-        if(maincatID.isEmpty()){
-            getProductList();
-        }else {
-            getChooseProductList(maincatID.toString());
+        try{
+            if(!maincatID.isEmpty()){
+                getChooseProductList(maincatID.toString());
+
+            }else {
+                getProductList();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
     }
 
     private void getChooseProductList(String catIDs) {

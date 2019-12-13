@@ -1,5 +1,7 @@
 package com.bytes.tech.awizom.ecommerceproject;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -13,6 +15,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -146,6 +149,10 @@ public class MainActivity extends AppCompatActivity
                 getAllSubCatagory();
             }
         });
+        getProductList();
+        getAllSubCatagory();
+        getBrandCatagory();
+        getCategoryList();
 
 
         cart.setOnClickListener(new View.OnClickListener() {
@@ -185,10 +192,6 @@ public class MainActivity extends AppCompatActivity
 //                getProductList();
 //            }
 //        });
-        getProductList();
-        getAllSubCatagory();
-        getBrandCatagory();
-        getCategoryList();
 
         final Handler handler = new Handler();
         final int[] colors = {Color.BLUE, Color.RED, Color.CYAN, Color.GREEN};
@@ -431,5 +434,33 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            AlertDialog.Builder alertbox = new AlertDialog.Builder(MainActivity.this);
+            alertbox.setIcon(R.drawable.ic_warning_black_24dp);
+            alertbox.setTitle("Do You Want To Exit Programme?");
+            alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface arg0, int arg1) {
+                    // finish used for destroyed activity
+                    finishAffinity();
+                    System.exit(0);
+                }
+            });
+
+            alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface arg0, int arg1) {
+                    // Nothing will be happened when clicked on no button
+                    // of Dialog
+                }
+            });
+            alertbox.show();
+        }
+
+        return super.onKeyDown(keyCode, event);
     }
 }

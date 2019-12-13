@@ -7,7 +7,6 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.bytes.tech.awizom.ecommerceproject.R;
 
 public class MobilenumberExample extends AppCompatActivity {
@@ -22,10 +21,8 @@ public class MobilenumberExample extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.eample_mobilenumber);
+        setContentView(R.layout.bottom_slide_dailog);
 
-        number = findViewById(R.id.mobileNumber);
-        click = findViewById(R.id.submit);
 
     }
 
