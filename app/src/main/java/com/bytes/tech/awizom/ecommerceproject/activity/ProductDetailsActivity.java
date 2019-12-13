@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+
 import com.bytes.tech.awizom.ecommerceproject.R;
 import com.bytes.tech.awizom.ecommerceproject.adapter.ProductDetailsAdapter;
 import com.bytes.tech.awizom.ecommerceproject.configure.HelperApi;
@@ -23,10 +25,11 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
     GridView gridView;
     private Intent intent;
-    private String result="",maincatID="";
+    private String result="",maincatID="",subID="";
     List<ProductModel> productModelList;
     private ProgressDialog progressDialog;
     private ImageView addcarts;
+
 
 
     @Override
@@ -53,9 +56,11 @@ public class ProductDetailsActivity extends AppCompatActivity {
         toolbar.setTitleTextAppearance(getApplicationContext(), R.style.styleA);
         toolbar.setTitleTextColor(Color.WHITE);
 
+
         gridView = (GridView) findViewById(R.id.gridviewproduct);
         addcarts =  (ImageView) findViewById(R.id.cartviews);
-        maincatID = getIntent().getStringExtra("ID");
+        maincatID = getIntent().getStringExtra("mainID");
+        subID = getIntent().getStringExtra("subID");
 
         progressDialog = new ProgressDialog(this);
 
@@ -70,10 +75,13 @@ public class ProductDetailsActivity extends AppCompatActivity {
         });
 
         try{
-            if(!maincatID.isEmpty()){
-                getChooseProductList(maincatID.toString());
-
-            }else {
+//            if(!maincatID.isEmpty()){
+//                GetAllProductsListByMainCatID(maincatID.toString());
+//
+//            }else
+                if(!subID.isEmpty()){
+                GetProductsListBySubCAtagory(subID.toString());
+            } else{
                 getProductList();
             }
         }catch (Exception e){
@@ -82,14 +90,14 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
     }
 
-    private void getChooseProductList(String catIDs) {
+    private void GetAllProductsListByMainCatID(String catIDs) {
         try {
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            result = new HelperApi.GetSingleMainCategoriesList().execute(catIDs.toString()).get();
+            result = new HelperApi.GetAllProductsListByMainCatID().execute(catIDs.toString()).get();
             if (result.isEmpty()) {
                 progressDialog.dismiss();
-                result = new HelperApi.GetSingleMainCategoriesList().execute().get();
+                result = new HelperApi.GetAllProductsListByMainCatID().execute().get();
             } else {
                 progressDialog.dismiss();
                 Gson gson = new Gson();
@@ -104,7 +112,28 @@ public class ProductDetailsActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+    private void GetProductsListBySubCAtagory(String catIDs) {
+        try {
+            progressDialog.setMessage("loading...");
+            progressDialog.show();
+            result = new HelperApi.GetProductsListBySubCAtagory().execute(catIDs.toString()).get();
+            if (result.isEmpty()) {
+                progressDialog.dismiss();
+                result = new HelperApi.GetProductsListBySubCAtagory().execute(catIDs.toString()).get();
+            } else {
+                progressDialog.dismiss();
+                Gson gson = new Gson();
+                Type listType = new TypeToken<List<ProductModel>>() {
+                }.getType();
+                productModelList = new Gson().fromJson(result, listType);
+                ProductDetailsAdapter productDetailsAdapter = new ProductDetailsAdapter(ProductDetailsActivity.this, productModelList);
+                gridView.setAdapter(productDetailsAdapter);
 
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     private void getProductList() {
         try {
             progressDialog.setMessage("loading...");

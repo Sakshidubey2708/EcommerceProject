@@ -1,25 +1,28 @@
 package com.bytes.tech.awizom.ecommerceproject.adapter;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bytes.tech.awizom.ecommerceproject.R;
 import com.bytes.tech.awizom.ecommerceproject.activity.ProductDetailsActivity;
 import com.bytes.tech.awizom.ecommerceproject.activity.SignInActivity;
-import com.bytes.tech.awizom.ecommerceproject.activity.SingleDetailView;
+import com.bytes.tech.awizom.ecommerceproject.activity.SplashActivity;
 import com.bytes.tech.awizom.ecommerceproject.configure.HelperApi;
 import com.bytes.tech.awizom.ecommerceproject.configure.SharedPrefManager;
 import com.bytes.tech.awizom.ecommerceproject.models.ProductModel;
@@ -81,7 +84,7 @@ public class ProductDetailsAdapter extends BaseAdapter {
             //  final ProgressBar progressBar = gridViewAndroid.findViewById(R.id.homeprogress);
             try {
                 productnames.setText(productModelList.get(i).getProductName());
-                titlenames.setText(productModelList.get(i).getTitleName());
+                titlenames.setText(productModelList.get(i).getTypeWeight());
                 discount.setText(String.valueOf(productModelList.get(i).getTotalDiscounts()) +"%" + " " +"OFF");
                 mrp.setText("₹"+String.valueOf(productModelList.get(i).getMRP()));
                 assured_price.setText("₹" +String.valueOf(productModelList.get(i).getAssuredPrice()));
@@ -91,13 +94,11 @@ public class ProductDetailsAdapter extends BaseAdapter {
                     @Override
                     public void onClick(View v) {
 
-                        if(SharedPrefManager.getInstance(mContext).getUser().getUserID().isEmpty()){
+                        if(SharedPrefManager.getInstance(mContext).getUser().getUserID() == null){
                             showCustomDialog(v);
                         }else {
                             postCArt();
                         }
-
-
 //                        Intent intent = new Intent(mContext, SingleDetailView.class);
 //                        intent.putExtra("ID", pID.getText().toString());
 //                        mContext.startActivity(intent);
@@ -127,16 +128,51 @@ public class ProductDetailsAdapter extends BaseAdapter {
         return gridViewAndroid;
     }
     private void showCustomDialog(View v) {
-        //before inflating the custom alert dialog layout, we will get the current activity viewgroup
-        ViewGroup viewGroup = v.findViewById(android.R.id.content);
-        //then we will inflate the custom alert dialog xml that we created
-        View dialogView = LayoutInflater.from(mContext).inflate(R.layout.bottom_slide_dailog, viewGroup, false);
-        //Now we need an AlertDialog.Builder object
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        //setting the view of the builder to our custom view that we already inflated
-        builder.setView(dialogView);
+//        //before inflating the custom alert dialog layout, we will get the current activity viewgroup
+//        ViewGroup viewGroup = v.findViewById(android.R.id.content);
+//        //then we will inflate the custom alert dialog xml that we created
+//        View dialogView = LayoutInflater.from(mContext).inflate(R.layout.bottom_slide_dailog, viewGroup, false);
+//        //Now we need an AlertDialog.Builder object
+//        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+//        //setting the view of the builder to our custom view that we already inflated
+//        builder.setView(dialogView);
+//        ImageView closebtn = dialogView.findViewById(R.id.close);
+//        TextView loginview = dialogView.findViewById(R.id.loginClickevent);
+//
+//        loginview.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(mContext, SignInActivity.class);
+//                mContext.startActivity(i);
+//            }
+//        });
+//        closebtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
+//        //finally creating the alert dialog and displaying it
+//        AlertDialog alertDialog = builder.create();
+//        alertDialog.show();
 
-        TextView loginview = dialogView.findViewById(R.id.loginClickevent);
+
+        final Dialog dialog = new Dialog(mContext);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.gravity = Gravity.BOTTOM;
+        lp.windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().setAttributes(lp);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.bottom_slide_dailog);
+
+
+        ImageView closebtn = dialog.findViewById(R.id.close);
+        TextView loginview = dialog.findViewById(R.id.loginClickevent);
+
         loginview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,9 +180,22 @@ public class ProductDetailsAdapter extends BaseAdapter {
                 mContext.startActivity(i);
             }
         });
-        //finally creating the alert dialog and displaying it
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+        closebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
+        closebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
     private void postCArt() {
         try {

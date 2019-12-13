@@ -16,7 +16,7 @@ public class ProductModel {
 
 
     public String ProductName;
-    public String TitleName ;
+    public String TypeWeight ;
 
     public long MainCatId ;
     public long SubCatId ;
@@ -104,12 +104,12 @@ public class ProductModel {
         ProductName = productName;
     }
 
-    public String getTitleName() {
-        return TitleName;
+    public String getTypeWeight() {
+        return TypeWeight;
     }
 
-    public void setTitleName(String titleName) {
-        TitleName = titleName;
+    public void setTypeWeight(String typeWeight) {
+        TypeWeight = typeWeight;
     }
 
     public long getMainCatId() {

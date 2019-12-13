@@ -66,7 +66,7 @@ public class CatagoryGridViewAdapter extends BaseAdapter {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(mContext, ViewSubCatagoryActivity.class);
-                        intent.putExtra("ID",catagoryIDss.getText().toString());
+                        intent.putExtra("mainID",catagoryIDss.getText().toString());
                         mContext.startActivity(intent);
                     }
                 });

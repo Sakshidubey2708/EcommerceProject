@@ -33,7 +33,7 @@
             android:title="Login" />
         <item
             android:id="@+id/nav_logout"
-            android:title="logou" />
+            android:title="logout" />
     </group>
 
     <item android:title="">

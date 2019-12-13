@@ -9,10 +9,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.bytes.tech.awizom.ecommerceproject.R;
 import com.bytes.tech.awizom.ecommerceproject.adapter.CartAdapter;
 import com.bytes.tech.awizom.ecommerceproject.configure.HelperApi;
+import com.bytes.tech.awizom.ecommerceproject.configure.SharedPrefManager;
 import com.bytes.tech.awizom.ecommerceproject.models.CartModel;
 import com.bytes.tech.awizom.ecommerceproject.models.ProductModel;
 import com.google.gson.Gson;
@@ -27,6 +30,8 @@ public class CartActivity extends AppCompatActivity {
     private String result = "";
     List<CartModel> cartModels;
     SwipeRefreshLayout mSwipeRefreshLayout;
+    private LinearLayout gridlayout,baglayout;
+    private Button proceed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +58,9 @@ public class CartActivity extends AppCompatActivity {
         toolbar.setTitleTextColor(Color.WHITE);
         
         try{
+            gridlayout = findViewById(R.id.details);
+            baglayout =  findViewById(R.id.goneBagLayout);
+            proceed =findViewById(R.id.proceed);
             recyclerView = findViewById(R.id.recyclerViewCart);
             mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayoutCart);
             recyclerView.setHasFixedSize(true);
@@ -62,10 +70,21 @@ public class CartActivity extends AppCompatActivity {
                 @Override
                 public void onRefresh() {
                     // Refresh items
-                    getCArt();
+                    if(SharedPrefManager.getInstance(CartActivity.this).getUser().getUserID() == String.valueOf(0)){
+                        gridlayout.setVisibility(View.GONE);
+                        baglayout.setVisibility(View.VISIBLE);
+                        proceed.setEnabled(false);
+                    }else {
+                        getCArt();
+                    }
+
                 }
             });
-            getCArt();
+            if(SharedPrefManager.getInstance(CartActivity.this).getUser().getUserID() == null){
+
+            }else {
+                getCArt();
+            }
 
         }catch (Exception e){
             e.printStackTrace();
@@ -75,8 +94,11 @@ public class CartActivity extends AppCompatActivity {
     private void getCArt() {
         try {
             mSwipeRefreshLayout.setRefreshing(true);
-            result = new HelperApi.GetCartList().execute().get();
+            result = new HelperApi.GetCartList().execute(SharedPrefManager.getInstance(this).getUser().toString()).get();
             if (result.isEmpty()) {
+                gridlayout.setVisibility(View.GONE);
+                baglayout.setVisibility(View.VISIBLE);
+                proceed.setEnabled(false);
                 mSwipeRefreshLayout.setRefreshing(false);
             } else {
                 if (result.isEmpty()) {

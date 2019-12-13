@@ -42,12 +42,14 @@ public class SplashActivity extends AppCompatActivity {
                         @Override
                         public void run() {
 
-                            if(!(SharedPrefManager.getInstance(SplashActivity.this).getUser().getUserID().equals(0))){
+                            if(SharedPrefManager.getInstance(SplashActivity.this).getUser().getUserID() == null){
                                 Intent mainIntent = new Intent(SplashActivity.this,MainActivity.class);
                                 SplashActivity.this.startActivity(mainIntent);
                                 SplashActivity.this.finish();
                             }else {
-                                Intent mainIntent = new Intent(SplashActivity.this,SignInActivity.class);
+
+
+                                Intent mainIntent = new Intent(SplashActivity.this,MainActivity.class);
                                 SplashActivity.this.startActivity(mainIntent);
                                 SplashActivity.this.finish();
                             }

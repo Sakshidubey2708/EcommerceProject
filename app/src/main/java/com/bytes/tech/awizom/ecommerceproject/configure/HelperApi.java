@@ -179,7 +179,7 @@ public class HelperApi extends AppCompatActivity {
         }
     }
 
-    public static final class GetSingleMainCategoriesList extends AsyncTask<String, Void, String> {
+    public static final class GetAllProductsListByMainCatID extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... strings) {
@@ -189,7 +189,7 @@ public class HelperApi extends AppCompatActivity {
 
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "/GetMainCategoriesList/" + mID);
+                builder.url(AppConfig.BASE_URL_API + "/GetAllProductsListByMainCatID/" + mID);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 okhttp3.Response response = client.newCall(builder.build()).execute();
@@ -249,17 +249,17 @@ public class HelperApi extends AppCompatActivity {
         }
     }
 
-    public static final class GetSingleTypeCategoriesList extends AsyncTask<String, Void, String> {
+    public static final class GetProductsListBySubCAtagory extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... strings) {
             String json = "";
-            String tID = strings[0];
+            String subcatiD = strings[0];
             try {
 
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "/GetTypeSubCategoriessList/" + tID);
+                builder.url(AppConfig.BASE_URL_API + "/GetProductsListBySubCAtagoryss/" + subcatiD);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 okhttp3.Response response = client.newCall(builder.build()).execute();
@@ -553,7 +553,7 @@ public class HelperApi extends AppCompatActivity {
 
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "/GetCart/"+userID );
+                builder.url(AppConfig.BASE_URL_API + "/GetCarts/"+userID );
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 okhttp3.Response response = client.newCall(builder.build()).execute();

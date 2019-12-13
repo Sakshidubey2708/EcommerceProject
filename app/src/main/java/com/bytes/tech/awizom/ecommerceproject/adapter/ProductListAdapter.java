@@ -45,7 +45,7 @@ public class ProductListAdapter extends  RecyclerView.Adapter<ProductListAdapter
     public void onBindViewHolder(@NonNull final OrderItemViewHolder holder, int position) {
         ProductModel catagoriesModel = productModelList.get(position);
         try{
-            holder.titleNames.setText(catagoriesModel.getTitleName().toString());
+            holder.titleNames.setText(catagoriesModel.getTypeWeight().toString());
             holder.productNames.setText(catagoriesModel.getProductName().toString());
             holder.descriPtions.setText(catagoriesModel.getDescriptions().toString());
             holder.highliGhts.setText(catagoriesModel.getHighlightsDesign().toString());

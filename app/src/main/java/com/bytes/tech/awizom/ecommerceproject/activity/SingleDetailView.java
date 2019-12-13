@@ -127,7 +127,7 @@ public class SingleDetailView extends AppCompatActivity {
                 assuredprice.setText(String.valueOf(productModel.getAssuredPrice()));
                 discounts.setText("Offer" + String.valueOf(productModel.getTotalDiscounts()) + " %");
                 productname.setText(productModel.getProductName());
-                titlename.setText(productModel.getTitleName());
+                titlename.setText(productModel.getTypeWeight());
 
 
             }

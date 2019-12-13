@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.widget.TextView;
+import com.bytes.tech.awizom.ecommerceproject.activity.ProductDetailsActivity;
 import com.bytes.tech.awizom.ecommerceproject.models.CatagoriesModel;
 import com.bytes.tech.awizom.ecommerceproject.R;
 import java.util.List;
@@ -22,7 +23,7 @@ public class SubCatagoryAdapter extends  RecyclerView.Adapter<SubCatagoryAdapter
     private String result = "";
     private boolean isTailor = true;
     long pid = 0;
-
+    private Intent intent;
     public SubCatagoryAdapter(Context mCtx, List<CatagoriesModel> OrderNewOnes) {
         this.mCtx = mCtx;
         this.catagoriesModelList = OrderNewOnes;
@@ -48,6 +49,9 @@ public class SubCatagoryAdapter extends  RecyclerView.Adapter<SubCatagoryAdapter
             public void onClick(View v) {
 
 
+                intent = new Intent(mCtx, ProductDetailsActivity.class);
+                intent.putExtra("subID",holder.catagoryIDs.getText().toString());
+                mCtx.startActivity(intent);
 
 
 

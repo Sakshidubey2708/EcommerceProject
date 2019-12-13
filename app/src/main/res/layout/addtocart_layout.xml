@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/white">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -37,10 +38,53 @@
         android:orientation="vertical">
 
 <LinearLayout
+    android:id="@+id/detail"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_marginTop="60dp">
+    <LinearLayout
+        android:id="@+id/goneBagLayout"
+        android:layout_width="match_parent"
+        android:layout_height="650dp"
+        android:layout_marginTop="60dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:background="@color/white">
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="150dp"
+            android:src="@drawable/bag"
+            android:layout_gravity="center|center_horizontal"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_gravity="center|center_horizontal"
+            android:text="Hey, it feels so light!"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/grey_darks"
+            android:textSize="15sp"
+            android:layout_gravity="center|center_horizontal"
+            android:text="There is nothing in your bag, Let's add some items."/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:orientation="vertical">
         <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayoutCart"
         android:layout_width="match_parent"
@@ -164,6 +208,7 @@
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="1dp"-->
         <!--android:background="@color/grey"/>-->
+    </LinearLayout>
 </LinearLayout>
     </ScrollView>
     <LinearLayout
@@ -174,6 +219,7 @@
         android:layout_marginTop="5dp"
         android:layout_alignParentBottom="true">
         <Button
+            android:id="@+id/proceed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Proceed"

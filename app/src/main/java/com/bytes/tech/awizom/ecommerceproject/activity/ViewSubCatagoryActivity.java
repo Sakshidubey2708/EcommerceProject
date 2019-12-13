@@ -54,8 +54,11 @@ public class ViewSubCatagoryActivity extends AppCompatActivity {
         toolbar.setSubtitleTextAppearance(getApplicationContext(), R.style.styleA);
         toolbar.setTitleTextAppearance(getApplicationContext(), R.style.styleA);
         toolbar.setTitleTextColor(Color.WHITE);
-
-        ID = getIntent().getStringExtra("ID").toString();
+        try {
+            ID = getIntent().getStringExtra("mainID").toString();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         recyclerView = findViewById(R.id.recyclerView);
         mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         recyclerView.setHasFixedSize(true);
