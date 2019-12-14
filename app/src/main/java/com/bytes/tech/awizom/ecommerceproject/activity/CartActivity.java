@@ -42,8 +42,9 @@ public class CartActivity extends AppCompatActivity {
     }
 
     private void initview() {
+
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("My Cart");
+        toolbar.setTitle("Cart");
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

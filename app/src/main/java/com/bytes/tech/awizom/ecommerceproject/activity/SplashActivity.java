@@ -16,7 +16,7 @@ import com.bytes.tech.awizom.ecommerceproject.configure.SharedPrefManager;
 public class SplashActivity extends AppCompatActivity {
     boolean connected = false;
     Intent intent;
-    private final int SPLASH_DISPLAY_DURATION = 2000;
+    private final int SPLASH_DISPLAY_DURATION = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
