@@ -49,6 +49,11 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:layout_weight="1">
+                        <TextView
+                            android:id="@+id/imaglink"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:visibility="gone"/>
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/productImage"
                             android:layout_width="150dp"
@@ -106,11 +111,11 @@
                                 android:text="-"
                                 />
                             <TextView
+                                android:id="@+id/quantities"
                                 android:layout_width="40dp"
                                 android:layout_height="30dp"
                                 android:textColor="@color/white"
                                 android:background="@color/colorPrimaryDark"
-                                android:text="1"
                                 android:gravity="center"
                                 />
                             <Button

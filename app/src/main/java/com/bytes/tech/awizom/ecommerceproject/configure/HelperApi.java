@@ -459,40 +459,6 @@ public class HelperApi extends AppCompatActivity {
         }
     }
 
-    public static final class GetSingleNAmeBrandsList extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... strings) {
-            String json = "";
-            String brandID = strings[0];
-            try {
-
-                OkHttpClient client = new OkHttpClient();
-                Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "/GetProductsListByBrandCAtagory/" +brandID);
-                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
-                builder.addHeader("Accept", "application/json");
-                okhttp3.Response response = client.newCall(builder.build()).execute();
-                if (response.isSuccessful()) {
-                    json = response.body().string();
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return json;
-        }
-        protected void onPostExecute(String result) {
-            try {
-                if (result.isEmpty()) {
-                } else {
-                    super.onPostExecute(result);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     public static final class  PostCarts extends AsyncTask<String, Void, String> {
 
@@ -501,7 +467,7 @@ public class HelperApi extends AppCompatActivity {
 
 
             String productID = params[0];
-
+            String createdBy = params[1];
 
             String json = "";
             try {
@@ -513,7 +479,7 @@ public class HelperApi extends AppCompatActivity {
                 FormBody.Builder parameters = new FormBody.Builder();
 
                 parameters.add("ProductId", productID);
-                parameters.add("CreatedBy", "0");
+                parameters.add("CreatedBy", createdBy);
 
 
 
@@ -577,6 +543,42 @@ public class HelperApi extends AppCompatActivity {
             }
         }
     }
+
+    public static final class DeleteCartPost extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String json = "";
+            String CartId = strings[0];
+            try {
+
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "/PostDeleteCartItem/" +CartId);
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return json;
+        }
+        protected void onPostExecute(String result) {
+            try {
+                if (result.isEmpty()) {
+                } else {
+                    super.onPostExecute(result);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
 
 }

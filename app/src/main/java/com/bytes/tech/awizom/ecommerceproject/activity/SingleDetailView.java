@@ -1,6 +1,7 @@
 package com.bytes.tech.awizom.ecommerceproject.activity;
 
 import android.app.ActivityOptions;
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -30,7 +31,7 @@ public class SingleDetailView extends AppCompatActivity {
     private ProductModel productModel;
     private ImageView imaged;
     private TextView descriptiondesign, hightlightdesc, mrp, assuredprice, discounts, productname,titlename;
-
+    private ProgressDialog progressDialog;
 
     private CollapsingToolbarLayout collapsingToolbarLayout;
     @Override
@@ -54,7 +55,7 @@ public class SingleDetailView extends AppCompatActivity {
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         productIDs = getIntent().getStringExtra("ID").toString();
-
+        progressDialog = new ProgressDialog(this);
 
         imaged = findViewById(R.id.image);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -105,6 +106,8 @@ public class SingleDetailView extends AppCompatActivity {
     private void getDetailList(String productIDs) {
 
         try {
+            progressDialog.setMessage("loading...");
+            progressDialog.show();
             result = new HelperApi.GetSingleProductList().execute(productIDs.toString()).get();
         } catch (ExecutionException e) {
             e.printStackTrace();
@@ -113,13 +116,15 @@ public class SingleDetailView extends AppCompatActivity {
         }
 
         if (result.isEmpty()) {
+
+            progressDialog.dismiss();
         } else {
             Gson gson = new Gson();
             Type listType = new TypeToken<ProductModel>() {
             }.getType();
             productModel = new Gson().fromJson(result, listType);
             if (productModel != null) {
-
+                progressDialog.dismiss();
 
                 descriptiondesign.setText(productModel.getDescriptions());
                 hightlightdesc.setText(productModel.getHighlightsDesign());

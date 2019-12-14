@@ -37,7 +37,7 @@ public class ProductDetailsAdapter extends BaseAdapter {
     private Context mContext;
     private String skipdata="",pid="";
     private ProgressDialog progressDialog;
-    private String   result="";
+    private String   result=""; String userID="";
 
     public ProductDetailsAdapter(ProductDetailsActivity newCustomerHome, List<ProductModel> categorylist) {
 
@@ -202,7 +202,12 @@ public class ProductDetailsAdapter extends BaseAdapter {
             progressDialog.setMessage("loading...");
             progressDialog.show();
 
-            result =   new HelperApi.PostCarts().execute(pid.toString()).get();
+           if(SharedPrefManager.getInstance(mContext).getUser().getUserID() == null){
+               userID="0";
+           }else {
+              userID = SharedPrefManager.getInstance(mContext).getUser().getUserID();
+           }
+            result =   new HelperApi.PostCarts().execute(pid.toString(),userID.toString()).get();
             try {
                 if (result.isEmpty()) {
                     Log.d("Result Empty", "Error");

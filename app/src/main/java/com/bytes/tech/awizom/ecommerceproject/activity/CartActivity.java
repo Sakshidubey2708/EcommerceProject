@@ -1,6 +1,7 @@
 package com.bytes.tech.awizom.ecommerceproject.activity;
 
 import android.app.ActivityOptions;
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -11,16 +12,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-
 import com.bytes.tech.awizom.ecommerceproject.R;
 import com.bytes.tech.awizom.ecommerceproject.adapter.CartAdapter;
 import com.bytes.tech.awizom.ecommerceproject.configure.HelperApi;
 import com.bytes.tech.awizom.ecommerceproject.configure.SharedPrefManager;
 import com.bytes.tech.awizom.ecommerceproject.models.CartModel;
-import com.bytes.tech.awizom.ecommerceproject.models.ProductModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -32,6 +30,7 @@ public class CartActivity extends AppCompatActivity {
     SwipeRefreshLayout mSwipeRefreshLayout;
     private LinearLayout gridlayout,baglayout;
     private Button proceed;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +56,7 @@ public class CartActivity extends AppCompatActivity {
         toolbar.setSubtitleTextAppearance(getApplicationContext(), R.style.styleA);
         toolbar.setTitleTextAppearance(getApplicationContext(), R.style.styleA);
         toolbar.setTitleTextColor(Color.WHITE);
-        
+        progressDialog = new ProgressDialog(this);
         try{
             gridlayout = findViewById(R.id.details);
             baglayout =  findViewById(R.id.goneBagLayout);
@@ -66,6 +65,8 @@ public class CartActivity extends AppCompatActivity {
             mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayoutCart);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+            getCArt();
 
             mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
@@ -81,11 +82,7 @@ public class CartActivity extends AppCompatActivity {
 
                 }
             });
-            if(SharedPrefManager.getInstance(CartActivity.this).getUser().getUserID() == null){
 
-            }else {
-                getCArt();
-            }
 
         }catch (Exception e){
             e.printStackTrace();
@@ -94,17 +91,23 @@ public class CartActivity extends AppCompatActivity {
 
     private void getCArt() {
         try {
+            progressDialog.setMessage("loading...");
+            progressDialog.show();
+
             mSwipeRefreshLayout.setRefreshing(true);
-            result = new HelperApi.GetCartList().execute(SharedPrefManager.getInstance(this).getUser().toString()).get();
+            result = new HelperApi.GetCartList().execute(SharedPrefManager.getInstance(this).getUser().getUserID().toString()).get();
             if (result.isEmpty()) {
+                progressDialog.dismiss();
                 gridlayout.setVisibility(View.GONE);
                 baglayout.setVisibility(View.VISIBLE);
                 proceed.setEnabled(false);
                 mSwipeRefreshLayout.setRefreshing(false);
             } else {
                 if (result.isEmpty()) {
+                    progressDialog.dismiss();
                     mSwipeRefreshLayout.setRefreshing(false);
                 } else {
+                    progressDialog.dismiss();
                     /*   Toast.makeText(getApplicationContext(),result+"",Toast.LENGTH_LONG).show();*/
                     Gson gson = new Gson();
                     Type listType = new TypeToken<List<CartModel>>() {
