@@ -78,19 +78,26 @@
                             android:padding="5dp"
                             android:layout_gravity="center"
                             android:gravity="left"/>
+                        <TextView
+                            android:id="@+id/assuredRate"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:gravity="left"
+                            android:padding="5dp"
+                            android:layout_gravity="center"
+                            android:textColor="@color/orange_yellowihs"
+                            android:text="1233/-"/>
 
                         <TextView
-                        android:id="@+id/assuredRate"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        android:gravity="left"
-                        android:padding="5dp"
-                        android:layout_gravity="center"
-                        android:textColor="@color/orange_yellowihs"
-                        android:text="1233/-"/>
-
+                            android:id="@+id/dicount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:textColor="@color/black"
+                            android:hint="100/-"
+                            android:gravity="center"
+                            android:layout_marginLeft="4dp"/>
 
                         <TextView
                             android:id="@+id/productId"
@@ -117,7 +124,7 @@
                                 android:textColor="@color/white"
                                 android:background="@color/colorPrimaryDark"
                                 android:gravity="center"
-                                />
+                                 android:text="1" />
                             <Button
                                 android:id="@+id/add"
                                 android:layout_width="30dp"
@@ -127,13 +134,19 @@
                                 android:text="+"
                                 />
                             <TextView
-                                android:id="@+id/calculatePrice"
-                                android:layout_width="40dp"
+                                android:id="@+id/total"
+                                android:layout_width="wrap_content"
                                 android:layout_height="30dp"
                                 android:textColor="@color/black"
-                                android:hint="100/-"
+                                android:hint=""
                                 android:gravity="center"
                                 android:layout_marginLeft="4dp"/>
+                            <TextView
+                                android:id="@+id/mrpPrice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:visibility="gone"/>
+
                         </LinearLayout>
 
                         <!--<Button-->

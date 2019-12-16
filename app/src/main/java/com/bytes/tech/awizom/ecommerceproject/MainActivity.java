@@ -1,6 +1,7 @@
 package com.bytes.tech.awizom.ecommerceproject;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity
     List<Integer> imglist;
     List<Integer> color;
     List<String> colorName;
+    private ProgressDialog progressDialog;
 
     private ImageView cart;
 
@@ -125,6 +127,8 @@ public class MainActivity extends AppCompatActivity
         indicator = findViewById(R.id.indicator);
         cart = findViewById(R.id.addcart);
 
+        progressDialog = new ProgressDialog(this);
+
         recyclerView = findViewById(R.id.recyclerViewItems);
         mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayoutItems);
         recyclerView.setHasFixedSize(true);
@@ -135,6 +139,7 @@ public class MainActivity extends AppCompatActivity
         mSwipeRefreshLayoutBrand = findViewById(R.id.swipeRefreshLayoutBrand);
         recyclerViewBrand.setHasFixedSize(true);
         recyclerViewBrand.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, true));
+
 
         mSwipeRefreshLayoutBrand.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -166,15 +171,15 @@ public class MainActivity extends AppCompatActivity
         imglist = new ArrayList<Integer>();
         imglist.add(R.drawable.ec);
         imglist.add(R.drawable.m1);
-        imglist.add(R.drawable.ic_apps_black_24dp);
-
+        imglist.add(R.drawable.stt);
         color.add(Color.RED);
         color.add(Color.GREEN);
         color.add(Color.BLUE);
         colorName = new ArrayList<>();
-        colorName.add("Red");
-        colorName.add("Green");
-        colorName.add("Red");
+        colorName.add("");
+        colorName.add("");
+        colorName.add("");
+
         viewPager.setAdapter(new SliderAdapter(this, color, colorName, imglist));
         indicator.setupWithViewPager(viewPager, true);
         Timer timer = new Timer();
@@ -194,7 +199,7 @@ public class MainActivity extends AppCompatActivity
 //        });
 
         final Handler handler = new Handler();
-        final int[] colors = {Color.BLUE, Color.RED, Color.CYAN, Color.GREEN};
+        final int[] colors = {Color.BLUE, Color.RED};
         final int[] i = new int[1];
         Runnable runnable = new Runnable () {
             @Override
@@ -408,7 +413,10 @@ public class MainActivity extends AppCompatActivity
             overridePendingTransition(R.anim.slide_out, R.anim.slide_in);
         }
         else if (id == R.id.nav_logout) {
+            progressDialog.setMessage("loading...");
+            progressDialog.show();
             SharedPrefManager.getInstance(this).logout();
+            progressDialog.dismiss();
         }
 
 

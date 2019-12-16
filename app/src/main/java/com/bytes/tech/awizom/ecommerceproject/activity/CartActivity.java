@@ -16,7 +16,7 @@ import com.bytes.tech.awizom.ecommerceproject.R;
 import com.bytes.tech.awizom.ecommerceproject.adapter.CartAdapter;
 import com.bytes.tech.awizom.ecommerceproject.configure.HelperApi;
 import com.bytes.tech.awizom.ecommerceproject.configure.SharedPrefManager;
-import com.bytes.tech.awizom.ecommerceproject.models.CartModel;
+import com.bytes.tech.awizom.ecommerceproject.models.ProductDetailModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
@@ -26,7 +26,7 @@ public class CartActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     private String result = "";
-    List<CartModel> cartModels;
+    List<ProductDetailModel> productModelList;
     SwipeRefreshLayout mSwipeRefreshLayout;
     private LinearLayout gridlayout,baglayout;
     private Button proceed;
@@ -79,10 +79,8 @@ public class CartActivity extends AppCompatActivity {
                     }else {
                         getCArt();
                     }
-
                 }
             });
-
 
         }catch (Exception e){
             e.printStackTrace();
@@ -93,7 +91,6 @@ public class CartActivity extends AppCompatActivity {
         try {
             progressDialog.setMessage("loading...");
             progressDialog.show();
-
             mSwipeRefreshLayout.setRefreshing(true);
             result = new HelperApi.GetCartList().execute(SharedPrefManager.getInstance(this).getUser().getUserID().toString()).get();
             if (result.isEmpty()) {
@@ -110,11 +107,11 @@ public class CartActivity extends AppCompatActivity {
                     progressDialog.dismiss();
                     /*   Toast.makeText(getApplicationContext(),result+"",Toast.LENGTH_LONG).show();*/
                     Gson gson = new Gson();
-                    Type listType = new TypeToken<List<CartModel>>() {
+                    Type listType = new TypeToken<List<ProductDetailModel>>() {
                     }.getType();
-                    cartModels = new Gson().fromJson(result, listType);
-                    Log.d("Error", cartModels.toString());
-                    CartAdapter cartAdapter= new CartAdapter(CartActivity.this, cartModels);
+                    productModelList = new Gson().fromJson(result, listType);
+                    Log.d("Error", productModelList.toString());
+                    CartAdapter cartAdapter= new CartAdapter(CartActivity.this, productModelList);
                     recyclerView.setAdapter(cartAdapter);
                     mSwipeRefreshLayout.setRefreshing(false);
                 }

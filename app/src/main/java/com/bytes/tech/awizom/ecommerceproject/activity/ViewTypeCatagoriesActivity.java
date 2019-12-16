@@ -40,7 +40,6 @@ public class ViewTypeCatagoriesActivity extends AppCompatActivity {
     private void initview() {
 
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
-
         toolbar.setTitle("Type's of Categories");
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
@@ -56,7 +55,6 @@ public class ViewTypeCatagoriesActivity extends AppCompatActivity {
         toolbar.setTitleTextColor(Color.WHITE);
 
         progressDialog = new ProgressDialog(this);
-
         recyclerView = findViewById(R.id.recyclerView);
         mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         recyclerView.setHasFixedSize(true);
@@ -74,8 +72,6 @@ public class ViewTypeCatagoriesActivity extends AppCompatActivity {
     }
 
     private void getMainCatagories() {
-
-
         try {
             progressDialog.setMessage("loading...");
             progressDialog.show();

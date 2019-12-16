@@ -30,18 +30,28 @@
                 android:layout_height="150dp"
                 android:orientation="vertical"
                 android:padding="5dp">
-
                 <ImageView
                     android:layout_width="180dp"
-                    android:layout_height="200dp"
+                    android:layout_height="180dp"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
-                    android:paddingTop="5dp"
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true"
-                    android:src="@mipmap/img2" />
+                    android:src="@drawable/stt" />
+
+                <!--<ImageView-->
+                    <!--android:layout_width="180dp"-->
+                    <!--android:layout_height="200dp"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:gravity="center"-->
+                    <!--android:paddingLeft="5dp"-->
+                    <!--android:paddingRight="5dp"-->
+                    <!--android:paddingTop="5dp"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:layout_centerHorizontal="true"-->
+                    <!--android:src="@mipmap/img2" />-->
                 <!--<TextView-->
 
                     <!--android:layout_width="match_parent"-->
@@ -78,8 +88,7 @@
                 android:layout_gravity="center"
                 android:gravity="center|top"
                 android:text="@string/app_name"
-                android:layout_marginBottom="5dp"
-                />
+                android:layout_marginBottom="5dp"/>
 
             <!--<Button-->
                 <!--android:layout_width="100dp"-->

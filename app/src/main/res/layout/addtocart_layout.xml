@@ -13,22 +13,22 @@
         android:background="?attr/colorPrimary"
         app:popupTheme="@style/AppTheme.PopupOverlay">
 
-        <EditText
-            android:id="@+id/searchEdit"
-            android:layout_width="210dp"
-            android:layout_height="wrap_content"
-            android:text="Search"
-            android:padding="5dp"
-            android:textColor="@color/white"
-            android:drawableLeft="@drawable/ic_search_black_24dp"/>
+        <!--<EditText-->
+            <!--android:id="@+id/searchEdit"-->
+            <!--android:layout_width="210dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Search"-->
+            <!--android:padding="5dp"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:drawableLeft="@drawable/ic_search_black_24dp"/>-->
 
 
-        <ImageView
-            android:id="@+id/addcart"
-            android:layout_width="wrap_content"
-            android:paddingLeft="5dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_shopping_cart_black_24dp" />
+        <!--<ImageView-->
+            <!--android:id="@+id/addcart"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:paddingLeft="5dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/ic_shopping_cart_black_24dp" />-->
     </android.support.v7.widget.Toolbar>
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -147,7 +147,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
+        android:paddingLeft="15dp"
         android:paddingRight="10dp"
         android:orientation="horizontal"
         android:layout_marginTop="5dp">
@@ -176,7 +176,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
+        android:paddingLeft="15dp"
         android:paddingRight="10dp"
         android:textColor="@color/black"
         android:orientation="horizontal"

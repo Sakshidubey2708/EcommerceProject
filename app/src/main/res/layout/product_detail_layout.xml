@@ -36,18 +36,18 @@
         android:layout_height="650dp"
         android:layout_marginTop="10dp"
         android:orientation="vertical">
-        <TextView
-            android:id="@+id/text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Products Details"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:gravity="left"
-            android:layout_alignParentLeft="true"
-            android:paddingLeft="15dp"
-            android:layout_marginTop="50dp"/>
+        <!--<TextView-->
+            <!--android:id="@+id/text"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Products Details"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:textStyle="bold"-->
+            <!--android:textSize="18sp"-->
+            <!--android:gravity="left"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:paddingLeft="15dp"-->
+            <!--android:layout_marginTop="50dp"/>-->
 
         <GridView
             android:id="@+id/gridviewproduct"

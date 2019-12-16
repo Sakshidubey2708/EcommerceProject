@@ -74,7 +74,7 @@ public class BrandCatagoryAdapter extends  RecyclerView.Adapter<BrandCatagoryAda
             catagoryIDs=view.findViewById(R.id.catagoryID);
 
             final Handler handler = new Handler();
-            final int[] colors = {Color.BLUE, Color.RED, Color.CYAN, Color.GREEN};
+            final int[] colors = {Color.BLUE, Color.RED};
             final int[] i = new int[1];
             Runnable runnable = new Runnable () {
                 @Override

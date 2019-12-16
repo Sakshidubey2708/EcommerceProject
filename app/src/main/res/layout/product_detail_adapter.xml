@@ -41,7 +41,7 @@
                     android:gravity="center"
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true"
-                    android:src="@mipmap/jwel" />
+                    android:src="@drawable/stt" />
                 <!--<TextView-->
 
                 <!--android:layout_width="match_parent"-->
