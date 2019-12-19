@@ -55,8 +55,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
         toolbar.setTitleTextColor(Color.WHITE);
 
 
-        gridView = (GridView) findViewById(R.id.gridviewproduct);
-        addcarts =  (ImageView) findViewById(R.id.cartviews);
+        gridView = findViewById(R.id.gridviewproduct);
+        addcarts = findViewById(R.id.cartviews);
         maincatID = getIntent().getStringExtra("mainID");
         subID = getIntent().getStringExtra("subID");
 

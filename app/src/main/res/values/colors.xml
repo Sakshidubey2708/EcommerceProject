@@ -12,6 +12,10 @@
     <color name="colorPrimaryDark">#c1022e</color>
     <color name="colorAccent">#c1022e</color>
 
+    <!--<color name="colorPrimary">#fffeff</color>-->
+    <!--<color name="colorPrimaryDark">#fffeff</color>-->
+    <!--<color name="colorAccent">#fffeff</color>-->
+
     <color name="white">#fffeff</color>
     <color name="maroon">#c1022e</color>
     <color name="blue">#253a97</color>

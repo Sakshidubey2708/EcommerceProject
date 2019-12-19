@@ -1,6 +1,7 @@
 package com.bytes.tech.awizom.ecommerceproject;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,6 +17,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -26,6 +28,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -55,8 +60,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static java.security.AccessController.getContext;
-
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -82,8 +85,9 @@ public class MainActivity extends AppCompatActivity
     List<Integer> imglist;
     List<Integer> color;
     List<String> colorName;
-    private ProgressDialog progressDialog;
 
+    private ProgressDialog progressDialog;
+    private TextView searchEdits;
     private ImageView cart;
 
 //    private VideoView vv;
@@ -126,6 +130,7 @@ public class MainActivity extends AppCompatActivity
         viewPager = findViewById(R.id.viewPager);
         indicator = findViewById(R.id.indicator);
         cart = findViewById(R.id.addcart);
+        searchEdits = findViewById(R.id.searchEdit);
 
         progressDialog = new ProgressDialog(this);
 
@@ -154,6 +159,14 @@ public class MainActivity extends AppCompatActivity
                 getAllSubCatagory();
             }
         });
+
+        searchEdits.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(MainActivity.this,SearchActivity.class);
+                startActivity(intent);
+            }
+        });
         getProductList();
         getAllSubCatagory();
         getBrandCatagory();
@@ -163,8 +176,15 @@ public class MainActivity extends AppCompatActivity
         cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, CartActivity.class);
-                startActivity(intent);
+
+                if(SharedPrefManager.getInstance(MainActivity.this).getUser().getUserID() == null) {
+                    showCustomDialog(v);
+                }else {
+                    Intent intent = new Intent(MainActivity.this, CartActivity.class);
+                    startActivity(intent);
+                }
+
+
             }
         });
         color = new ArrayList<>();
@@ -228,6 +248,50 @@ public class MainActivity extends AppCompatActivity
 
 
 
+    }
+
+    private void showCustomDialog(View v) {
+
+
+        final Dialog dialog = new Dialog(this);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.gravity = Gravity.BOTTOM;
+        lp.windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().setAttributes(lp);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.bottom_slide_dailog);
+
+
+        ImageView closebtn = dialog.findViewById(R.id.close);
+        TextView loginview = dialog.findViewById(R.id.loginClickevent);
+
+        loginview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, SignInActivity.class);
+                startActivity(i);
+            }
+        });
+        closebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
+        closebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 
     private void getAllSubCatagory() {

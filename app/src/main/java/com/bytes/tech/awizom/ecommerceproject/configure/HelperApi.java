@@ -580,5 +580,158 @@ public class HelperApi extends AppCompatActivity {
     }
 
 
+    public static final class  PostOrderMain extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            String OrderId = params[0];
+            String OrderNo = params[1];
+            String UserId = params[2];
+            String DeliveryAddress = params[3];
+            String Statuss = params[4];
+            String TotalAmount = params[5];
+            String DeliveryCharge = params[6];
+            String AnyOtherCharge = params[7];
+
+            String json = "";
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "/OrderMainPost");
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                FormBody.Builder parameters = new FormBody.Builder();
+
+                parameters.add("OrderId", OrderId);
+                parameters.add("OrderNo", OrderNo);
+                parameters.add("UserId", UserId);
+                parameters.add("DeliveryAddress", DeliveryAddress);
+                parameters.add("Status", Statuss);
+                parameters.add("TotalAmount", TotalAmount);
+                parameters.add("DeliveryCharge", DeliveryCharge);
+                parameters.add("AnyOtherCharge", AnyOtherCharge);
+                builder.post(parameters.build());
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return json;
+
+        }
+        protected void onPostExecute(String result) {
+
+            try {
+                if (result.isEmpty()) {
+                } else {
+                    super.onPostExecute(result);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    public static final class  PostOrderDetailMain extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            String OrderDetailId = params[0];
+            String OrderId = params[1];
+            String ProductId = params[2];
+            String UnitPrice = params[3];
+            String Quantity = params[4];
+            String TotalAmount = params[5];
+            String Discount = params[6];
+            String DiscountAmount = params[7];
+            String SGST = params[8];
+            String CGST = params[9];
+            String TotalTaxAmount = params[10];
+            String TaxableAmount = params[11];
+
+            String json = "";
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "/OrderDetailMainPost");
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                FormBody.Builder parameters = new FormBody.Builder();
+
+                parameters.add("OrderDetailId", OrderDetailId);
+                parameters.add("OrderId", OrderId);
+                parameters.add("ProductId", ProductId);
+                parameters.add("UnitPrice", UnitPrice);
+                parameters.add("Quantity", Quantity);
+                parameters.add("TotalAmount", TotalAmount);
+                parameters.add("Discount", Discount);
+                parameters.add("DiscountAmount", DiscountAmount);
+                parameters.add("SGST", SGST);
+                parameters.add("CGST", CGST);
+                parameters.add("TotalTaxAmount", TotalTaxAmount);
+                parameters.add("TaxableAmount", TaxableAmount);
+
+                builder.post(parameters.build());
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return json;
+        }
+        protected void onPostExecute(String result) {
+            try {
+                if (result.isEmpty()) {
+                } else {
+                    super.onPostExecute(result);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static final class GetCartAmountList extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String json = "";
+            String userID = strings[0];
+
+            try {
+
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "/GetProductAmountTotal/"+userID );
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return json;
+        }
+        protected void onPostExecute(String result) {
+            try {
+                if (result.isEmpty()) {
+                } else {
+                    super.onPostExecute(result);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 }
