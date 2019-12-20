@@ -137,13 +137,13 @@ public class MainActivity extends AppCompatActivity
         recyclerView = findViewById(R.id.recyclerViewItems);
         mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayoutItems);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, true));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false));
 
 
         recyclerViewBrand = findViewById(R.id.recyclerViewBrand);
         mSwipeRefreshLayoutBrand = findViewById(R.id.swipeRefreshLayoutBrand);
         recyclerViewBrand.setHasFixedSize(true);
-        recyclerViewBrand.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, true));
+        recyclerViewBrand.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false));
 
 
         mSwipeRefreshLayoutBrand.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
-        getProductList();
+        //getProductList();
         getAllSubCatagory();
         getBrandCatagory();
         getCategoryList();

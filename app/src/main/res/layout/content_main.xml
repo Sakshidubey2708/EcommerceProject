@@ -248,7 +248,7 @@
                     <GridView
                         android:id="@+id/gridview"
                         android:layout_width="match_parent"
-                        android:layout_height="10000dp"
+                        android:layout_height="1700dp"
                         android:columnWidth="140dp"
                         android:gravity="center|center_horizontal"
                         android:horizontalSpacing="10dp"
