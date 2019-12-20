@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.bytes.tech.awizom.ecommerceproject.R;
 import com.bytes.tech.awizom.ecommerceproject.adapter.CartAdapter;
 import com.bytes.tech.awizom.ecommerceproject.configure.HelperApi;
@@ -38,7 +37,6 @@ public class CartActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private AmountTotalShow amountTotalShow;
     private TextView subtotal_prices,shippingcharge_amounts,payable_amounts;
-  //  private    ArrayList<String> AssuredPriceincreasingRate = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

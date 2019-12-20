@@ -137,8 +137,8 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.OrderItemView
 
     class OrderItemViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener {
 
-        private ImageView deletBTN,product_img;
-        private TextView product_name,assuredprice,mrpPrice,discount,productIdd,quantity,totals,imglinks;
+        private ImageView product_img;
+        private TextView product_name,assuredprice,mrpPrice,discount,productIdd,quantity,totals,imglinks,deletBTN;
         private List<ProductDetailModel> cardmodellist;
         private Context mCtx;
         private Button minusbtn,plusBtn;
