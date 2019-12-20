@@ -28,6 +28,7 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.OrderItemView
     long pid = 0;
     private static int _counter = 1;
     private String _stringVal,stringMM="";
+    Double total = null;
 
 
     public CartAdapter(Context mCtx, List<ProductDetailModel> OrderNewOnes) {
@@ -62,16 +63,18 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.OrderItemView
                     _stringVal = Integer.toString(_counter);
                     holder.quantity.setText(_stringVal);
 
-                    Double total = null, qty, ass_price,mm;
+                    Double  qty, ass_price,mm;
                     if(1 >= _counter) {
 
                         qty = Double.parseDouble(holder.quantity.getText().toString());
                         ass_price = Double.parseDouble(holder.assuredprice.getText().toString().split("₹")[1]);
                         total = qty * ass_price;
 
+
+                        holder.totals.setText("₹"+total.toString());
                     }
 
-                    holder.totals.setText("₹"+total.toString());
+
 
                 }
             });
@@ -86,7 +89,7 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.OrderItemView
                     _counter++;
                     _stringVal = Integer.toString(_counter);
                     holder.quantity.setText(_stringVal);
-                    Double total = null, qty, ass_price;
+                    Double  qty, ass_price;
                     if(_counter >=1){
 
 
@@ -94,9 +97,10 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.OrderItemView
                         ass_price = Double.parseDouble(holder.assuredprice.getText().toString().split("₹")[1]);
                         total = qty*ass_price;
 
+                        holder.totals.setText("₹"+total.toString());
                     }
 
-                    holder.totals.setText("₹"+total.toString());
+
                   //  stringMM = holder.assuredprice.getText().toString().split("₹")[1];
                 }
             });

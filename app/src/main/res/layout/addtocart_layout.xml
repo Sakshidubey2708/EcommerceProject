@@ -88,11 +88,11 @@
         <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayoutCart"
         android:layout_width="match_parent"
-        android:layout_height="400dp">
+        android:layout_height="1000dp">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerViewCart"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="980dp"
             android:scrollbars="vertical"
             android:fastScrollEnabled="true"
             android:fastScrollAlwaysVisible="true"/>
@@ -114,10 +114,7 @@
 
 
         </LinearLayout>
-    <!--<view-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="1dp"-->
-        <!--android:background="@color/grey"/>-->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -139,8 +136,7 @@
             android:layout_weight="1"
             android:textSize="15sp"
             android:hint="₹ 123/-"
-            android:textColor="@color/black"
-            />
+            android:textColor="@color/black"/>
 
 
     </LinearLayout>
@@ -169,10 +165,7 @@
         />
 
     </LinearLayout>
-    <!--<view-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="1dp"-->
-        <!--android:background="@color/grey" />-->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -200,14 +193,11 @@
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:layout_height="180dp">
 
     </LinearLayout>
 
-    <!--<view-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="1dp"-->
-        <!--android:background="@color/grey"/>-->
+
     </LinearLayout>
 </LinearLayout>
     </ScrollView>
