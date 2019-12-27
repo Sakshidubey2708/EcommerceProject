@@ -41,6 +41,7 @@ import com.bytes.tech.awizom.ecommerceproject.activity.ProductDetailsActivity;
 import com.bytes.tech.awizom.ecommerceproject.activity.ProductListActivity;
 import com.bytes.tech.awizom.ecommerceproject.activity.SearchActivity;
 import com.bytes.tech.awizom.ecommerceproject.activity.SignInActivity;
+import com.bytes.tech.awizom.ecommerceproject.activity.SplashActivity;
 import com.bytes.tech.awizom.ecommerceproject.activity.ViewMainCatagoryActivity;
 import com.bytes.tech.awizom.ecommerceproject.activity.ViewSubCatagoryActivity;
 import com.bytes.tech.awizom.ecommerceproject.activity.ViewTypeCatagoriesActivity;
@@ -89,6 +90,8 @@ public class MainActivity extends AppCompatActivity
     private ProgressDialog progressDialog;
     private TextView searchEdits;
     private ImageView cart;
+
+    private final int SPLASH_DISPLAY_DURATION = 1000;
 
 //    private VideoView vv;
 //    private MediaController mediacontroller;
@@ -168,10 +171,18 @@ public class MainActivity extends AppCompatActivity
             }
         });
         //getProductList();
-        getAllSubCatagory();
-        getBrandCatagory();
-        getCategoryList();
 
+
+        new Handler().postDelayed(new Runnable(){
+            @Override
+            public void run() {
+
+                getAllSubCatagory();
+                getBrandCatagory();
+                getCategoryList();
+
+            }
+        }, SPLASH_DISPLAY_DURATION);
 
         cart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -464,10 +475,6 @@ public class MainActivity extends AppCompatActivity
             overridePendingTransition(R.anim.slide_out, R.anim.slide_in);
         }else if (id == R.id.nav_listproduct) {
             intent = new Intent(this, ProductListActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_out, R.anim.slide_in);
-        }else if (id == R.id.nav_productdetails) {
-            intent = new Intent(this, ProductDetailsActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_out, R.anim.slide_in);
         }

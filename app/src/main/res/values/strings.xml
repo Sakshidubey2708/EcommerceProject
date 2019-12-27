@@ -13,4 +13,5 @@
     <string name="ProductType"><u>Product Type</u></string>
     <string name="somthing"> 10 % instant Discount* with this bank  </string>
     <string name="message">Welcom to ECommerce</string>
+    <string name="note">Sign-up now to get <b>500 off + free shipping</b> on your first order</string>
 </resources>

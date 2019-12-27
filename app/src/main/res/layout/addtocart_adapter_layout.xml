@@ -92,7 +92,11 @@
                             android:hint="100/-"
                             android:gravity="center"
                             android:layout_marginLeft="4dp"/>
-
+                        <TextView
+                            android:id="@+id/cartId"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:visibility="gone"/>
                         <TextView
                             android:id="@+id/productId"
                             android:layout_width="match_parent"
@@ -133,7 +137,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="30dp"
                                 android:textColor="@color/black"
-                                android:hint=""
+                                android:hint="₹/-"
                                 android:gravity="center"
                                 android:layout_marginLeft="4dp"/>
                             <TextView

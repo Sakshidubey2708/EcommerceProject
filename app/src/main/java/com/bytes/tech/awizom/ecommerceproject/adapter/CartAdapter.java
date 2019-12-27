@@ -14,14 +14,19 @@ import android.widget.Toast;
 import com.bytes.tech.awizom.ecommerceproject.R;
 import com.bytes.tech.awizom.ecommerceproject.configure.HelperApi;
 import com.bytes.tech.awizom.ecommerceproject.configure.SharedPrefManager;
-import com.bytes.tech.awizom.ecommerceproject.models.ProductDetailModel;
+import com.bytes.tech.awizom.ecommerceproject.models.CartAssured;
+import com.bytes.tech.awizom.ecommerceproject.models.CartModel;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.List;
 
 public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.OrderItemViewHolder> {
 
     private Context mCtx;
-    private List<ProductDetailModel> cardmodellist;
-    private ProductDetailModel propertyName;
+    private List<CartModel> cardmodellist;
+    private CartModel propertyName;
     TextView calltext;
     private String result = "";
     private boolean isTailor = true;
@@ -29,9 +34,11 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.OrderItemView
     private static int _counter = 1;
     private String _stringVal,stringMM="";
     Double total = null;
+    private long CartAssuredId=0;
+    private CartAssured cartAssureds;
 
 
-    public CartAdapter(Context mCtx, List<ProductDetailModel> OrderNewOnes) {
+    public CartAdapter(Context mCtx, List<CartModel> OrderNewOnes) {
         this.mCtx = mCtx;
         this.cardmodellist = OrderNewOnes;
     }
@@ -46,9 +53,11 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.OrderItemView
 
     @Override
     public void onBindViewHolder(@NonNull final CartAdapter.OrderItemViewHolder holder, int position) {
-        ProductDetailModel catagoriesModel = cardmodellist.get(position);
+        CartModel catagoriesModel = cardmodellist.get(position);
         try{
             holder.productIdd.setText(String.valueOf(catagoriesModel.getProductId()));
+            holder.cartIds.setText(String.valueOf(catagoriesModel.getCartId()));
+//            CartAssuredId =  Integer.parseInt(holder.cartIds.getText().toString());
             holder.product_name.setText(catagoriesModel.getProductName());
             holder.assuredprice.setText("₹"+String.valueOf(catagoriesModel.getAssuredPriceINR()));
             holder.mrpPrice.setText("₹"+String.valueOf(catagoriesModel.getMRPINR()));
@@ -91,13 +100,47 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.OrderItemView
                     holder.quantity.setText(_stringVal);
                     Double  qty, ass_price;
                     if(_counter >=1){
-
-
                         qty = Double.parseDouble(holder.quantity.getText().toString());
                         ass_price = Double.parseDouble(holder.assuredprice.getText().toString().split("₹")[1]);
                         total = qty*ass_price;
-
                         holder.totals.setText("₹"+total.toString());
+
+//                        if(!holder.totals.getText().toString().isEmpty()){
+//                            try {
+//
+//                                result = new HelperApi.PostCartAmount().execute(
+//                                        String.valueOf(CartAssuredId),
+//                                        holder.cartIds.getText().toString(),
+//                                        holder.productIdd.getText().toString(),
+//                                        SharedPrefManager.getInstance(mCtx).getUser().getUserID().toString(),
+//                                        holder.quantity.getText().toString(),
+//                                        holder.totals.getText().toString().split("₹")[1]).get();
+//                                if (result.isEmpty()) {
+//                                    result = new HelperApi.PostCartAmount().execute(
+//                                            String.valueOf(CartAssuredId),
+//                                            holder.cartIds.getText().toString(),
+//                                            holder.productIdd.getText().toString(),
+//                                            SharedPrefManager.getInstance(mCtx).getUser().getUserID().toString(),
+//                                            holder.quantity.getText().toString(),
+//                                            holder.totals.getText().toString().split("₹")[1]).get();
+//                                } else {
+//                                    if (result.isEmpty()) {
+//
+//                                    } else {
+//                                        Gson gson = new Gson();
+//                                        Type listType = new TypeToken<List<CartAssured>>() {
+//                                        }.getType();
+//                                        cartAssureds = new Gson().fromJson(result, listType);
+//                                        CartAssuredId =cartAssureds.getCartAssuredId();
+//                                        Toast.makeText(mCtx,String.valueOf(CartAssuredId),Toast.LENGTH_LONG).show();
+//                                    }
+//                                }
+//                            } catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
+//                        }else {
+//
+//                        }
                     }
 
 
@@ -109,10 +152,9 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.OrderItemView
                 public void onClick(View v) {
                     try {
 
-                        result = new HelperApi.DeleteCartPost().execute(SharedPrefManager.getInstance(mCtx).getUser().getUserID().toString()).get();
+                        result = new HelperApi.DeleteCartPost().execute(  holder.cartIds.getText().toString()).get();
                         if (result.isEmpty()) {
-                            result = new HelperApi.DeleteCartPost().execute(SharedPrefManager.getInstance(mCtx).getUser().getUserID().toString()).get();
-                        } else {
+                            result = new HelperApi.DeleteCartPost().execute(  holder.cartIds.getText().toString()).get();                        } else {
                             if (result.isEmpty()) {
 
                             } else {
@@ -138,18 +180,19 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.OrderItemView
     class OrderItemViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener {
 
         private ImageView product_img;
-        private TextView product_name,assuredprice,mrpPrice,discount,productIdd,quantity,totals,imglinks,deletBTN;
-        private List<ProductDetailModel> cardmodellist;
+        private TextView product_name,assuredprice,mrpPrice,discount,productIdd,quantity,totals,imglinks,deletBTN,cartIds;
+        private List<CartModel> cardmodellist;
         private Context mCtx;
         private Button minusbtn,plusBtn;
 
-        public OrderItemViewHolder(View view, Context mCtx, List<ProductDetailModel> OrderNewOnes) {
+        public OrderItemViewHolder(View view, Context mCtx, List<CartModel> OrderNewOnes) {
             super(view);
             this.mCtx = mCtx;
             this.cardmodellist = OrderNewOnes;
             deletBTN = view.findViewById(R.id.deleteButton);
             product_img =view.findViewById(R.id.productImage);
             product_name = view.findViewById(R.id.productname);
+            cartIds = view.findViewById(R.id.cartId);
 
             quantity = view.findViewById(R.id.quantities);
 
@@ -162,8 +205,7 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.OrderItemView
             imglinks = view.findViewById(R.id.imaglink);
 
             minusbtn =view.findViewById(R.id.minus);
-            plusBtn =
-                    view.findViewById(R.id.add);
+            plusBtn = view.findViewById(R.id.add);
 
         }
 

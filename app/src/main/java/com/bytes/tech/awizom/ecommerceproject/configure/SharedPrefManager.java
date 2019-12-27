@@ -3,6 +3,7 @@ package com.bytes.tech.awizom.ecommerceproject.configure;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.bytes.tech.awizom.ecommerceproject.models.AmountTotalShow;
 import com.bytes.tech.awizom.ecommerceproject.models.UserLogin;
 
 
@@ -15,6 +16,8 @@ public class SharedPrefManager {
     private static final String KEY_USER_TOKEN = "accesstoken";
     private static final String KEY_USER_EMAIL = "username";
     private static final String KEY_USER_ID = "userid";
+
+    private static final String SHARED_PREF_assured_amt = "dhh";
 
 
     private SharedPrefManager(Context context) {

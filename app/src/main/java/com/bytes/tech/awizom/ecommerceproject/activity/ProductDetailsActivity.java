@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.bytes.tech.awizom.ecommerceproject.R;
 import com.bytes.tech.awizom.ecommerceproject.adapter.ProductDetailsAdapter;
 import com.bytes.tech.awizom.ecommerceproject.configure.HelperApi;
@@ -18,7 +20,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class ProductDetailsActivity extends AppCompatActivity {
+public class ProductDetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
 
     GridView gridView;
@@ -27,6 +29,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
     List<ProductModel> productModelList;
     private ProgressDialog progressDialog;
     private ImageView addcarts;
+    private TextView gotocart;
 
 
 
@@ -57,6 +60,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
         gridView = findViewById(R.id.gridviewproduct);
         addcarts = findViewById(R.id.cartviews);
+        gotocart = findViewById(R.id.gotoCart);
         maincatID = getIntent().getStringExtra("mainID");
         subID = getIntent().getStringExtra("subID");
 
@@ -64,13 +68,9 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
 
         //getProductList();
-        addcarts.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ProductDetailsActivity.this, CartActivity.class);
-                startActivity(intent);
-            }
-        });
+
+
+        gotocart.setOnClickListener(this);
 
         try{
 //            if(!maincatID.isEmpty()){
@@ -152,6 +152,20 @@ public class ProductDetailsActivity extends AppCompatActivity {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.cartviews:
+                 intent = new Intent(ProductDetailsActivity.this, CartActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.gotoCart:
+                 intent = new Intent(ProductDetailsActivity.this, CartActivity.class);
+                startActivity(intent);
+                break;
         }
     }
 }
