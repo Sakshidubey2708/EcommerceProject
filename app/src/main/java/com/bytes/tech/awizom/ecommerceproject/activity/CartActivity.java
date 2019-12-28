@@ -16,13 +16,11 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bytes.tech.awizom.ecommerceproject.R;
 import com.bytes.tech.awizom.ecommerceproject.adapter.CartAdapter;
 import com.bytes.tech.awizom.ecommerceproject.configure.HelperApi;
 import com.bytes.tech.awizom.ecommerceproject.configure.SharedPrefManager;
 import com.bytes.tech.awizom.ecommerceproject.models.AmountTotalShow;
-import com.bytes.tech.awizom.ecommerceproject.models.CartAssured;
 import com.bytes.tech.awizom.ecommerceproject.models.CartModel;
 import com.bytes.tech.awizom.ecommerceproject.models.OrderMainModel;
 import com.google.gson.Gson;
@@ -42,23 +40,18 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
     private Button proceed;
     private ProgressDialog progressDialog;
     private AmountTotalShow amountTotalShow;
-
-
     private TextView subtotal_prices,total_amounts,shippingcharge_amounts,anyother_charge;
     ArrayList<String> mrps = new ArrayList<String>();
     private final int SPLASH_DISPLAY_DURATION = 1000;
     String AssuredString="",deliveryAddress="Raipur",productId="",quantities="",mrpPric="",dicounts="";
-
     OrderMainModel orderMainModel;
     long orderMainID=0;
     private static int orderNo = 1;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addtocart_layout);
-
         initview();
     }
 
@@ -133,9 +126,6 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                     subtotal_prices.setText("₹" + total );
 
 
-
-
-
                     new Handler().postDelayed(new Runnable(){
                         @Override
                         public void run() {
@@ -144,8 +134,6 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
 
                         }
                     }, SPLASH_DISPLAY_DURATION);
-
-
                 }
 
             }

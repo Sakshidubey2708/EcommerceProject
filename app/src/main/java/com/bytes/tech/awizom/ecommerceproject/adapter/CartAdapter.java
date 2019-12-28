@@ -1,25 +1,25 @@
 package com.bytes.tech.awizom.ecommerceproject.adapter;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bytes.tech.awizom.ecommerceproject.R;
 import com.bytes.tech.awizom.ecommerceproject.configure.HelperApi;
-import com.bytes.tech.awizom.ecommerceproject.configure.SharedPrefManager;
 import com.bytes.tech.awizom.ecommerceproject.models.CartAssured;
 import com.bytes.tech.awizom.ecommerceproject.models.CartModel;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
 import java.util.List;
 
 public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.OrderItemViewHolder> {
@@ -32,10 +32,12 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.OrderItemView
     private boolean isTailor = true;
     long pid = 0;
     private static int _counter = 1;
-    private String _stringVal,stringMM="";
+    private static int _counters = 1;
+    private String _stringVal,stringCounters="";
     Double total = null;
     private long CartAssuredId=0;
     private CartAssured cartAssureds;
+    private ProgressDialog progressDialog;
 
 
     public CartAdapter(Context mCtx, List<CartModel> OrderNewOnes) {
@@ -63,6 +65,129 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.OrderItemView
             holder.mrpPrice.setText("₹"+String.valueOf(catagoriesModel.getMRPINR()));
             holder.discount.setText(String.valueOf(catagoriesModel.getMRPDiscountINR()) + "%");
 
+            holder.Qtys.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final Dialog dialog = new Dialog(mCtx);
+                    WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                    lp.copyFrom(dialog.getWindow().getAttributes());
+                    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                    lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+                    lp.gravity = Gravity.BOTTOM;
+                    lp.windowAnimations = R.style.DialogAnimation;
+                    dialog.getWindow().setAttributes(lp);
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.setCancelable(false);
+                    dialog.setContentView(R.layout.bottom_qty_dailog);
+
+                    final TextView quantity = dialog.findViewById(R.id.quantities);
+
+                    Button plusBtn = dialog.findViewById(R.id.plus);
+                    Button doneBtn = dialog.findViewById(R.id.done);
+                    final Button minusbtn = dialog.findViewById(R.id.minus);
+                    ImageView closebtn = dialog.findViewById(R.id.close);
+
+
+                    closebtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.cancel();
+                        }
+                    });
+
+                    doneBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.cancel();
+                            //                        if(!holder.totals.getText().toString().isEmpty()){
+//                            try {
+//
+//                                result = new HelperApi.PostCartAmount().execute(
+//                                        String.valueOf(CartAssuredId),
+//                                        holder.cartIds.getText().toString(),
+//                                        holder.productIdd.getText().toString(),
+//                                        SharedPrefManager.getInstance(mCtx).getUser().getUserID().toString(),
+//                                        holder.quantity.getText().toString(),
+//                                        holder.totals.getText().toString().split("₹")[1]).get();
+//                                if (result.isEmpty()) {
+//                                    result = new HelperApi.PostCartAmount().execute(
+//                                            String.valueOf(CartAssuredId),
+//                                            holder.cartIds.getText().toString(),
+//                                            holder.productIdd.getText().toString(),
+//                                            SharedPrefManager.getInstance(mCtx).getUser().getUserID().toString(),
+//                                            holder.quantity.getText().toString(),
+//                                            holder.totals.getText().toString().split("₹")[1]).get();
+//                                } else {
+//                                    if (result.isEmpty()) {
+//
+//                                    } else {
+//                                        Gson gson = new Gson();
+//                                        Type listType = new TypeToken<List<CartAssured>>() {
+//                                        }.getType();
+//                                        cartAssureds = new Gson().fromJson(result, listType);
+//                                        CartAssuredId =cartAssureds.getCartAssuredId();
+//                                        Toast.makeText(mCtx,String.valueOf(CartAssuredId),Toast.LENGTH_LONG).show();
+//                                    }
+//                                }
+//                            } catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
+//                        }else {
+//
+//                        }
+                        }
+                    });
+
+                    plusBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Log.d("src", "Increasing value...");
+                            _counters++;
+                            _stringVal = Integer.toString(_counters);
+                            quantity.setText(_stringVal);
+                            stringCounters = quantity.getText().toString();
+                            Double  qty, ass_price,mm;
+                            if(_counter >=1) {
+                                qty = Double.parseDouble(stringCounters.toString());
+                                ass_price = Double.parseDouble(holder.assuredprice.getText().toString().split("₹")[1]);
+                                total = qty * ass_price;
+                                holder.totals.setText("₹" + total.toString());
+                            }
+
+                        }
+                    });
+                    minusbtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Log.d("src", "Decreasing value...");
+                            _counters--;
+                            _stringVal = Integer.toString(_counters);
+                            quantity.setText(_stringVal);
+                            stringCounters = quantity.getText().toString();
+
+                            Double  qty, ass_price,mm;
+                            if(1 >= _counter) {
+
+                                qty = Double.parseDouble(stringCounters.toString());
+                                ass_price = Double.parseDouble(holder.assuredprice.getText().toString().split("₹")[1]);
+                                total = qty * ass_price;
+                                holder.totals.setText("₹"+total.toString());
+                            }
+
+                        }
+                    });
+                    closebtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    dialog.show();
+                }
+            });
+
+            //close dialog;
 
             holder.minusbtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -78,8 +203,6 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.OrderItemView
                         qty = Double.parseDouble(holder.quantity.getText().toString());
                         ass_price = Double.parseDouble(holder.assuredprice.getText().toString().split("₹")[1]);
                         total = qty * ass_price;
-
-
                         holder.totals.setText("₹"+total.toString());
                     }
 
@@ -171,6 +294,10 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.OrderItemView
         }
     }
 
+    private void showdailog(String s) {
+
+    }
+
 
     @Override
     public int getItemCount() {
@@ -180,7 +307,7 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.OrderItemView
     class OrderItemViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener {
 
         private ImageView product_img;
-        private TextView product_name,assuredprice,mrpPrice,discount,productIdd,quantity,totals,imglinks,deletBTN,cartIds;
+        private TextView product_name,assuredprice,mrpPrice,discount,productIdd,quantity,totals,imglinks,deletBTN,cartIds,Qtys;
         private List<CartModel> cardmodellist;
         private Context mCtx;
         private Button minusbtn,plusBtn;
@@ -189,6 +316,8 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.OrderItemView
             super(view);
             this.mCtx = mCtx;
             this.cardmodellist = OrderNewOnes;
+            progressDialog = new ProgressDialog(mCtx);
+
             deletBTN = view.findViewById(R.id.deleteButton);
             product_img =view.findViewById(R.id.productImage);
             product_name = view.findViewById(R.id.productname);
@@ -200,6 +329,7 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.OrderItemView
             mrpPrice =view.findViewById(R.id.mrpPrice);
             discount = view.findViewById(R.id.dicount);
             totals = view.findViewById(R.id.total);
+            Qtys = view.findViewById(R.id.Qty);
 
             productIdd =view.findViewById(R.id.productId);
             imglinks = view.findViewById(R.id.imaglink);

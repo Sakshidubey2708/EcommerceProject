@@ -93,6 +93,24 @@
                             android:gravity="center"
                             android:layout_marginLeft="4dp"/>
                         <TextView
+                            android:id="@+id/Qty"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:textColor="@color/black"
+                            android:text="Qty."
+                            android:textStyle="bold"
+                            android:textAllCaps="true"
+                            android:gravity="center"
+                            android:layout_marginLeft="4dp"/>
+                        <TextView
+                            android:id="@+id/total"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:textColor="@color/black"
+                            android:hint="₹/-"
+                            android:gravity="center"
+                            android:layout_marginLeft="4dp"/>
+                        <TextView
                             android:id="@+id/cartId"
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
@@ -106,7 +124,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="horizontal"
-                            android:layout_marginTop="20dp">
+                            android:layout_marginTop="20dp"
+                            android:visibility="gone">
                             <Button
                                 android:id="@+id/minus"
                                 android:layout_width="30dp"
@@ -132,14 +151,7 @@
                                 android:background="@color/colorPrimaryDark"
                                 android:text="+"
                                 android:textStyle="bold"/>
-                            <TextView
-                                android:id="@+id/total"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:textColor="@color/black"
-                                android:hint="₹/-"
-                                android:gravity="center"
-                                android:layout_marginLeft="4dp"/>
+
                             <TextView
                                 android:id="@+id/mrpPrice"
                                 android:layout_width="wrap_content"

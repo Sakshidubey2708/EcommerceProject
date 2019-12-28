@@ -709,6 +709,14 @@ public class HelperApi extends AppCompatActivity {
             String UserId = params[3];
             String Quantity = params[4];
             String AssuredPriceINR = params[5];
+            String ProImg1=params[6];
+            String ProductName = params[7];
+            String Descriptions = params[8];
+            String TotalDiscountsPer = params[9];
+            String MRPINR = params[10];
+            String BrandId = params[11];
+            String BrandName=params[12];
+            String MRPDiscountINR = params[13];
 
 
             String json = "";
@@ -726,6 +734,15 @@ public class HelperApi extends AppCompatActivity {
                 parameters.add("UserId", UserId);
                 parameters.add("Quantity", Quantity);
                 parameters.add("AssuredPriceINR", AssuredPriceINR);
+                parameters.add("ProImg1" ,ProImg1);
+                parameters.add("ProductName", ProductName);
+                parameters.add("Descriptions", Descriptions);
+                parameters.add("TotalDiscountsPer", TotalDiscountsPer);
+                parameters.add("MRPINR", MRPINR);
+                parameters.add("BrandId", BrandId);
+                parameters.add("BrandName", BrandName);
+                parameters.add("MRPDiscountINR", MRPDiscountINR);
+
 
                 builder.post(parameters.build());
                 okhttp3.Response response = client.newCall(builder.build()).execute();
