@@ -258,9 +258,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.proceed:
-
                     postOrderMain();
-
                 break;
         }
     }
@@ -305,7 +303,6 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
             e.printStackTrace();
         }
     }
-
 
     @Override
     public void onClick(String value) {
