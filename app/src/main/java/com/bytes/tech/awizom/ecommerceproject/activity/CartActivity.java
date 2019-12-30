@@ -3,6 +3,7 @@ package com.bytes.tech.awizom.ecommerceproject.activity;
 import android.app.ActivityOptions;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,12 +31,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class CartActivity extends AppCompatActivity implements View.OnClickListener {
+public class CartActivity extends AppCompatActivity implements View.OnClickListener , OnItemClick {
 
     RecyclerView recyclerView;
     private String result = "";
     List<CartModel> productModelList;
-    SwipeRefreshLayout mSwipeRefreshLayout;
+   // SwipeRefreshLayout mSwipeRefreshLayout;
     private LinearLayout gridlayout,baglayout;
     private Button proceed;
     private ProgressDialog progressDialog;
@@ -80,7 +81,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
             proceed =findViewById(R.id.proceed);
             proceed.setOnClickListener(this);
             recyclerView = findViewById(R.id.recyclerViewCart);
-            mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayoutCart);
+           // mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayoutCart);
 
             subtotal_prices =findViewById(R.id.subtotal_price);
             total_amounts=findViewById(R.id.total_amount);
@@ -89,7 +90,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
 
 
             recyclerView.setHasFixedSize(true);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
             if(SharedPrefManager.getInstance(CartActivity.this).getUser().getUserID() == String.valueOf(0)){
                 gridlayout.setVisibility(View.GONE);
@@ -139,20 +140,20 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
             }
             getCArt();
 
-            mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                @Override
-                public void onRefresh() {
-                    // Refresh items
-                    if(SharedPrefManager.getInstance(CartActivity.this).getUser().getUserID() == String.valueOf(0)){
-                        gridlayout.setVisibility(View.GONE);
-                        baglayout.setVisibility(View.VISIBLE);
-                        total_amounts.setVisibility(View.GONE);
-                        proceed.setEnabled(false);
-                    }else {
-                        getCArt();
-                    }
-                }
-            });
+//            mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//                @Override
+//                public void onRefresh() {
+//                    // Refresh items
+//                    if(SharedPrefManager.getInstance(CartActivity.this).getUser().getUserID() == String.valueOf(0)){
+//                        gridlayout.setVisibility(View.GONE);
+//                        baglayout.setVisibility(View.VISIBLE);
+//                        total_amounts.setVisibility(View.GONE);
+//                        proceed.setEnabled(false);
+//                    }else {
+//                        getCArt();
+//                    }
+//                }
+//            });
 
 
 
@@ -160,6 +161,10 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
 
         }catch (Exception e){
             e.printStackTrace();
+            gridlayout.setVisibility(View.GONE);
+            baglayout.setVisibility(View.VISIBLE);
+            total_amounts.setVisibility(View.GONE);
+            proceed.setEnabled(false);
         }
     }
 
@@ -167,7 +172,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         try {
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            mSwipeRefreshLayout.setRefreshing(true);
+         //   mSwipeRefreshLayout.setRefreshing(true);
             result = new HelperApi.GetCartList().execute(SharedPrefManager.getInstance(this).getUser().getUserID().toString()).get();
             if (result.isEmpty()) {
                 progressDialog.dismiss();
@@ -176,20 +181,25 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                 total_amounts.setVisibility(View.GONE);
                 proceed.setEnabled(false);
                 progressDialog.dismiss();
-                mSwipeRefreshLayout.setRefreshing(false);
+            //    mSwipeRefreshLayout.setRefreshing(false);
             } else {
                 if (result.isEmpty()) {
                     progressDialog.dismiss();
-                    mSwipeRefreshLayout.setRefreshing(false);
+                    gridlayout.setVisibility(View.GONE);
+                    baglayout.setVisibility(View.VISIBLE);
+                    total_amounts.setVisibility(View.GONE);
+                    proceed.setEnabled(false);
+                    progressDialog.dismiss();
+               //     mSwipeRefreshLayout.setRefreshing(false);
                 } else {
-                    mSwipeRefreshLayout.setRefreshing(false);
+                //    mSwipeRefreshLayout.setRefreshing(false);
                     /*   Toast.makeText(getApplicationContext(),result+"",Toast.LENGTH_LONG).show();*/
                     Gson gson = new Gson();
                     Type listType = new TypeToken<List<CartModel>>() {
                     }.getType();
                     productModelList = new Gson().fromJson(result, listType);
                     Log.d("Error", productModelList.toString());
-                    CartAdapter cartAdapter= new CartAdapter(CartActivity.this, productModelList);
+                    CartAdapter cartAdapter= new CartAdapter(CartActivity.this, productModelList,this);
                     recyclerView.setAdapter(cartAdapter);
 
                     progressDialog.dismiss();
@@ -198,8 +208,14 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         } catch (Exception e) {
-            mSwipeRefreshLayout.setRefreshing(false);
+           // mSwipeRefreshLayout.setRefreshing(false);
             e.printStackTrace();
+            progressDialog.dismiss();
+            gridlayout.setVisibility(View.GONE);
+            baglayout.setVisibility(View.VISIBLE);
+            total_amounts.setVisibility(View.GONE);
+            proceed.setEnabled(false);
+            progressDialog.dismiss();
         }
 
     }
@@ -288,6 +304,20 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    @Override
+    public void onClick(String value) {
+
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("key_name5", value.toString());
+        editor.apply();
+
+        subtotal_prices.setText(value.toString() + ".00");
+        total_amounts.setText( "Total Amount =" +value.toString()+ ".00");
+        Toast.makeText(getApplicationContext(),value.toString(),Toast.LENGTH_LONG).show();
     }
 
 
