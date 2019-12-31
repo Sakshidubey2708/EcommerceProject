@@ -183,17 +183,8 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                 progressDialog.dismiss();
             //    mSwipeRefreshLayout.setRefreshing(false);
             } else {
-                if (result.isEmpty()) {
-                    progressDialog.dismiss();
-                    gridlayout.setVisibility(View.GONE);
-                    baglayout.setVisibility(View.VISIBLE);
-                    total_amounts.setVisibility(View.GONE);
-                    proceed.setEnabled(false);
-                    progressDialog.dismiss();
-               //     mSwipeRefreshLayout.setRefreshing(false);
-                } else {
                 //    mSwipeRefreshLayout.setRefreshing(false);
-                    /*   Toast.makeText(getApplicationContext(),result+"",Toast.LENGTH_LONG).show();*/
+               /*   Toast.makeText(getApplicationContext(),result+"",Toast.LENGTH_LONG).show();*/
                     Gson gson = new Gson();
                     Type listType = new TypeToken<List<CartModel>>() {
                     }.getType();
@@ -201,11 +192,8 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                     Log.d("Error", productModelList.toString());
                     CartAdapter cartAdapter= new CartAdapter(CartActivity.this, productModelList,this);
                     recyclerView.setAdapter(cartAdapter);
-
                     progressDialog.dismiss();
 
-
-                }
             }
         } catch (Exception e) {
            // mSwipeRefreshLayout.setRefreshing(false);
@@ -306,11 +294,10 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(String value) {
-
-        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putString("key_name5", value.toString());
-        editor.apply();
+//        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+//        SharedPreferences.Editor editor = pref.edit();
+//        editor.putString("key_name5", value.toString());
+//        editor.apply();
 
         subtotal_prices.setText(value.toString() + ".00");
         total_amounts.setText( "Total Amount =" +value.toString()+ ".00");
