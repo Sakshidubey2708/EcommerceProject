@@ -145,7 +145,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="15sp"
-            android:hint="₹12"
+            android:text="12"
             android:textColor="@color/black" />
 
     </LinearLayout>
@@ -170,7 +170,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="15sp"
-            android:text="₹12"
+            android:text="12"
             android:textColor="@color/blue" />
 
 

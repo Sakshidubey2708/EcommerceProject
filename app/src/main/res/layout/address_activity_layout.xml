@@ -118,7 +118,6 @@
                             android:inputType="text"
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"
-                            android:maxLength="10"
                             android:layout_marginTop="5dp"/>
 
                         <EditText
@@ -133,7 +132,6 @@
                             android:inputType="text"
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"
-                            android:maxLength="10"
                             android:layout_marginTop="5dp"/>
 
                         <EditText
@@ -148,7 +146,6 @@
                             android:inputType="text"
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"
-                            android:maxLength="10"
                             android:layout_marginTop="5dp"/>
 
 

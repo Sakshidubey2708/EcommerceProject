@@ -42,6 +42,11 @@
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
+        <activity
+            android:name=".activity.AddressActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
 
         <activity
             android:name=".activity.ViewTypeCatagoriesActivity"
@@ -69,6 +74,15 @@
             <!--</intent-filter>-->
         </activity>
 
+        <activity android:name=".activity.CameraExample">
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+        <activity android:name=".activity.OrdertrackingActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <activity
             android:name=".activity.ProductListActivity"
             android:theme="@style/AppTheme.NoActionBar">

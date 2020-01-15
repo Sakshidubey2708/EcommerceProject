@@ -1,16 +1,30 @@
 package com.bytes.tech.awizom.ecommerceproject.models;
 
 
+import java.util.Date;
+
 public class OrderMainModel {
 
     public long OrderId ;
     public String OrderNo ;
     public String UserId ;
+    public String Date;
     public String DeliveryAddress ;
     public String Status;
     public double TotalAmount ;
+
+    public String getDate() {
+        return Date;
+    }
+
+    public void setDate(String date) {
+        Date = date;
+    }
+
     public double DeliveryCharge;
     public double AnyOtherCharge;
+
+
 
 
     public long getOrderId() {

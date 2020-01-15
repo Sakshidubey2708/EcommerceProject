@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.bytes.tech.awizom.ecommerceproject.MainActivity;
 import com.bytes.tech.awizom.ecommerceproject.R;
 import com.bytes.tech.awizom.ecommerceproject.configure.HelperApi;
 import com.bytes.tech.awizom.ecommerceproject.configure.SharedPrefManager;
@@ -22,11 +23,12 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 public class AddressActivity extends AppCompatActivity implements View.OnClickListener {
-    private String OrderId="",result="";
-    private EditText name,mobileno,pincode,address,city,state;
-    private Button saveBtn,cancelBtn;
+    private String OrderId = "", result = "";
+    private EditText name, mobileno, pincode, address, city, state;
+    private Button saveBtn, cancelBtn;
     OrderDetailMain orderDetailMain;
-    long orderDetailID=0;
+    long orderDetailID = 0;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,29 +56,66 @@ public class AddressActivity extends AppCompatActivity implements View.OnClickLi
 
         OrderId = getIntent().getStringExtra("ID").toString();
 
-        name =findViewById(R.id.NAme);
-        mobileno =findViewById(R.id.mobileNo);
-        pincode =findViewById(R.id.pinCode);
-        address =findViewById(R.id.addreSs);
-        city =findViewById(R.id.cityy);
+        name = findViewById(R.id.NAme);
+        mobileno = findViewById(R.id.mobileNo);
+        pincode = findViewById(R.id.pinCode);
+        address = findViewById(R.id.addreSs);
+        city = findViewById(R.id.cityy);
         state = findViewById(R.id.statee);
 
-        saveBtn =findViewById(R.id.cancel);
+        saveBtn = findViewById(R.id.cancel);
         cancelBtn = findViewById(R.id.submit);
 
         saveBtn.setOnClickListener(this);
         cancelBtn.setOnClickListener(this);
+        intent = new Intent();
 
 
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.submit:
-                orderDetails(OrderId);
+                final String n = name.getText().toString();
+                final String d = mobileno.getText().toString();
+                final String l = pincode.getText().toString();
+                final String k = address.getText().toString();
+                final String c = city.getText().toString();
+                final String s = state.getText().toString();
+
+                if (n.length() == 0) {
+                    name.requestFocus();
+                    name.setError("FIELD CANNOT BE EMPTY");
+                } else if (!n.matches("[a-zA-Z ]+")) {
+                    name.requestFocus();
+                    name.setError("ENTER ONLY ALPHABETICAL CHARACTER");
+                } else if (d.length() == 0) {
+                    mobileno.requestFocus();
+                    mobileno.setError("FIELD CANNOT BE EMPTY");
+                }  else if (l.length() == 0) {
+                    pincode.requestFocus();
+                    pincode.setError("FIELD CANNOT BE EMPTY");
+                }  else if (k.length() == 0) {
+                    address.requestFocus();
+                    address.setError("FIELD CANNOT BE EMPTY");
+                }else if (c.length() == 0) {
+                    city.requestFocus();
+                    city.setError("FIELD CANNOT BE EMPTY");
+                }else if (s.length() == 0) {
+                    state.requestFocus();
+                    state.setError("FIELD CANNOT BE EMPTY");
+                }
+                else {
+                    intent = new Intent(this, CameraExample.class);
+                    startActivity(intent);
+                }
+
+
                 break;
             case R.id.cancel:
+                intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
                 break;
         }
     }
@@ -85,28 +124,35 @@ public class AddressActivity extends AppCompatActivity implements View.OnClickLi
 
         try {
 
-            result = new HelperApi.PostOrderMain().execute(
+            String Addresss = address.getText().toString().trim() + city.getText().toString().trim() + state.getText().toString().trim();
+            result = new HelperApi.PostOrderDetailMain().execute(
                     String.valueOf(orderDetailID),
                     orderMainID.toString(),
                     SharedPrefManager.getInstance(this).getUser().getUserID().toString(),
-                    "", "productId",
-                    "unitprice",
-                    "quantity",
-                    "totalamount").get();
+                    "", "",
+                    "",
+                    "",
+                    "", "", "").get();
             if (result.isEmpty()) {
-
+                result = new HelperApi.PostOrderDetailMain().execute(
+                        String.valueOf(orderDetailID),
+                        orderMainID.toString(),
+                        SharedPrefManager.getInstance(this).getUser().getUserID().toString(),
+                        "", "",
+                        "",
+                        "",
+                        "", "", "").get();
             } else {
 
                 Gson gson = new Gson();
-                Type listType = new TypeToken<List<OrderMainModel>>() {
+                Type listType = new TypeToken<OrderMainModel>() {
                 }.getType();
                 orderDetailMain = new Gson().fromJson(result, listType);
-                orderDetailID =orderDetailMain.getOrderId();
+                orderDetailID = orderDetailMain.getOrderId();
 
-                Intent intent = new Intent(this,AddressActivity.class);
-                intent.putExtra("ID" , String.valueOf(orderMainID));
+                Intent intent = new Intent(this, CameraExample.class);
                 startActivity(intent);
-                Toast.makeText(this,String.valueOf(orderMainID),Toast.LENGTH_LONG).show();
+                Toast.makeText(this, String.valueOf(orderMainID), Toast.LENGTH_LONG).show();
 
             }
         } catch (Exception e) {

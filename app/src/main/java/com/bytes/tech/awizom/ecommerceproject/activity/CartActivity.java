@@ -22,6 +22,7 @@ import com.bytes.tech.awizom.ecommerceproject.adapter.CartAdapter;
 import com.bytes.tech.awizom.ecommerceproject.configure.HelperApi;
 import com.bytes.tech.awizom.ecommerceproject.configure.SharedPrefManager;
 import com.bytes.tech.awizom.ecommerceproject.models.AmountTotalShow;
+import com.bytes.tech.awizom.ecommerceproject.models.CartAssured;
 import com.bytes.tech.awizom.ecommerceproject.models.CartModel;
 import com.bytes.tech.awizom.ecommerceproject.models.OrderMainModel;
 import com.google.gson.Gson;
@@ -101,41 +102,41 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                 getCArt();
                 getAssuredTotalAmount(SharedPrefManager.getInstance(CartActivity.this).getUser().getUserID().toString());
 
-                ArrayList<String> AssuredPriceincreasingRate = new ArrayList<String>();
-                for (int i = 0; i < productModelList.size(); i++) {
-                    View view = recyclerView.getChildAt(i);
-
-                    TextView productIDs= view.findViewById(R.id.productId);
-                    productId=productIDs.getText().toString();
-
-                    TextView quantity= view.findViewById(R.id.quantities);
-                    quantities=quantity.getText().toString();
-
-                    TextView textView1=  view.findViewById(R.id.total);
-                    AssuredString=textView1.getText().toString();
-
-                    TextView mrpPrices=view.findViewById(R.id.mrpPrice);
-                    mrpPric=mrpPrices.getText().toString();
-
-                    TextView dicountt= view.findViewById(R.id.dicount);
-                    dicounts=dicountt.getText().toString();
-
-                    TextView totalAssured= view.findViewById(R.id.total);
-                    AssuredString=totalAssured.getText().toString();
-                    AssuredPriceincreasingRate.add(AssuredString);
-                    double total = Double.parseDouble(String.valueOf(amountTotalShow.getTotalAssuredPriceINR())+AssuredString);
-                    subtotal_prices.setText("₹" + total );
-
-
-                    new Handler().postDelayed(new Runnable(){
-                        @Override
-                        public void run() {
-                            getAssuredTotalAmount(SharedPrefManager.getInstance(CartActivity.this).getUser().getUserID().toString());
-                            Toast.makeText(CartActivity.this,AssuredString.toString(),Toast.LENGTH_LONG).show();
-
-                        }
-                    }, SPLASH_DISPLAY_DURATION);
-                }
+//                ArrayList<String> AssuredPriceincreasingRate = new ArrayList<String>();
+//                for (int i = 0; i < productModelList.size(); i++) {
+//                    View view = recyclerView.getChildAt(i);
+//
+////                    TextView productIDs= view.findViewById(R.id.productId);
+////                    productId=productIDs.getText().toString();
+//
+//                    TextView quantity= view.findViewById(R.id.quantities);
+//                    quantities=quantity.getText().toString();
+//
+//                    TextView textView1=  view.findViewById(R.id.total);
+//                    AssuredString=textView1.getText().toString();
+//
+//                    TextView mrpPrices=view.findViewById(R.id.mrpPrice);
+//                    mrpPric=mrpPrices.getText().toString();
+//
+//                    TextView dicountt= view.findViewById(R.id.dicount);
+//                    dicounts=dicountt.getText().toString();
+//
+//                    TextView totalAssured= view.findViewById(R.id.total);
+//                    AssuredString=totalAssured.getText().toString();
+//                    AssuredPriceincreasingRate.add(AssuredString);
+//                    double total = Double.parseDouble(String.valueOf(amountTotalShow.getTotalAssuredPriceINR())+AssuredString);
+//                    subtotal_prices.setText("₹" + total );
+//
+//
+//                    new Handler().postDelayed(new Runnable(){
+//                        @Override
+//                        public void run() {
+//                            getAssuredTotalAmount(SharedPrefManager.getInstance(CartActivity.this).getUser().getUserID().toString());
+//                            Toast.makeText(CartActivity.this,AssuredString.toString(),Toast.LENGTH_LONG).show();
+//
+//                        }
+//                    }, SPLASH_DISPLAY_DURATION);
+//                }
 
             }
             getCArt();
@@ -193,6 +194,8 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                     CartAdapter cartAdapter= new CartAdapter(CartActivity.this, productModelList,this);
                     recyclerView.setAdapter(cartAdapter);
                     progressDialog.dismiss();
+                getCArt();
+
 
             }
         } catch (Exception e) {
@@ -261,8 +264,8 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                     "",
                     proceed.getText().toString().trim(),
                     total_amounts.getText().toString(),
-                    shippingcharge_amounts.getText().toString().split("₹")[1],
-                    anyother_charge.getText().toString().split("₹")[1]).get();
+                    shippingcharge_amounts.getText().toString(),
+                    anyother_charge.getText().toString()).get();
             if (result.isEmpty()) {
                 result = new HelperApi.PostOrderMain().execute(
                         String.valueOf(orderMainID),
@@ -271,13 +274,14 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                         "",
                         proceed.getText().toString().trim(),
                         total_amounts.getText().toString(),
-                        shippingcharge_amounts.getText().toString().split("₹")[1],
-                        anyother_charge.getText().toString().split("₹")[1]).get();
+                        shippingcharge_amounts.getText().toString(),
+                        anyother_charge.getText().toString()).get();
             } else {
 
                     Gson gson = new Gson();
-                    Type listType = new TypeToken<List<OrderMainModel>>() {
+                    Type listType = new TypeToken<OrderMainModel>() {
                     }.getType();
+
                     orderMainModel = new Gson().fromJson(result, listType);
                     orderMainID =orderMainModel.getOrderId();
 

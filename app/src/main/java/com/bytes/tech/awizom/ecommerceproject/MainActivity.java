@@ -36,7 +36,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bytes.tech.awizom.ecommerceproject.activity.BrandCatagoriesActivity;
+import com.bytes.tech.awizom.ecommerceproject.activity.CameraExample;
 import com.bytes.tech.awizom.ecommerceproject.activity.CartActivity;
+import com.bytes.tech.awizom.ecommerceproject.activity.OrdertrackingActivity;
 import com.bytes.tech.awizom.ecommerceproject.activity.ProductDetailsActivity;
 import com.bytes.tech.awizom.ecommerceproject.activity.ProductListActivity;
 import com.bytes.tech.awizom.ecommerceproject.activity.SearchActivity;
@@ -124,6 +126,8 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+
         initview();
     }
 
@@ -134,7 +138,7 @@ public class MainActivity extends AppCompatActivity
         indicator = findViewById(R.id.indicator);
         cart = findViewById(R.id.addcart);
         searchEdits = findViewById(R.id.searchEdit);
-
+        intent = new Intent();
         progressDialog = new ProgressDialog(this);
 
         recyclerView = findViewById(R.id.recyclerViewItems);
@@ -479,10 +483,38 @@ public class MainActivity extends AppCompatActivity
             overridePendingTransition(R.anim.slide_out, R.anim.slide_in);
         }
         else if (id == R.id.nav_login) {
-            intent = new Intent(this, SignInActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_out, R.anim.slide_in);
-        }
+//            intent = new Intent(this, SignInActivity.class);
+//            startActivity(intent);
+//            overridePendingTransition(R.anim.slide_out, R.anim.slide_in);
+
+            if(SharedPrefManager.getInstance(this).getUser().getUserID().equals("0")){
+                startActivity(intent=new Intent(this,SignInActivity.class));
+                overridePendingTransition(R.anim.slide_out, R.anim.slide_in);
+
+            }else {
+                AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
+                alertbox.setIcon(R.drawable.ic_warning_black_24dp);
+                alertbox.setTitle("You have already logged In");
+                alertbox.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+//                         finishAffinity();
+//                         System.exit(0);
+
+
+                    }
+                });
+
+                alertbox.show();
+            }
+        }  else  if (id == R.id.nav_ordrTrack) {
+
+         startActivity(intent=new Intent(this,OrdertrackingActivity.class));
+
+    }else  if (id == R.id.nav_builtyUpload) {
+
+        startActivity(intent=new Intent(this,CameraExample.class));
+
+    }
         else if (id == R.id.nav_logout) {
             progressDialog.setMessage("loading...");
             progressDialog.show();
