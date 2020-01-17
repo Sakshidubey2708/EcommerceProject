@@ -15,4 +15,5 @@
     <string name="message">Welcom to ECommerce</string>
     <string name="note">Sign-up now to get <b>500 off + free shipping</b> on your first order</string>
     <string name="notification_activity">notify</string>
+    <string name="homeliving"><![CDATA[Home&living]]></string>
 </resources>

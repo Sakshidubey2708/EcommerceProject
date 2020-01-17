@@ -17,6 +17,7 @@ import com.bytes.tech.awizom.ecommerceproject.configure.HelperApi;
 import com.bytes.tech.awizom.ecommerceproject.models.ProductModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -25,12 +26,11 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
 
     GridView gridView;
     private Intent intent;
-    private String result="",maincatID="",subID="";
+    private String result = "", maincatID = "", subID = "";
     List<ProductModel> productModelList;
     private ProgressDialog progressDialog;
     private ImageView addcarts;
     private TextView gotocart;
-
 
 
     @Override
@@ -72,17 +72,17 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
 
         gotocart.setOnClickListener(this);
 
-        try{
+        try {
 //            if(!maincatID.isEmpty()){
 //                GetAllProductsListByMainCatID(maincatID.toString());
 //
 //            }else
-                if(!subID.isEmpty()){
+            if (!subID.isEmpty()) {
                 GetProductsListBySubCAtagory(subID.toString());
-            } else{
+            } else {
                 getProductList();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -110,6 +110,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
             e.printStackTrace();
         }
     }
+
     private void GetProductsListBySubCAtagory(String catIDs) {
         try {
             progressDialog.setMessage("loading...");
@@ -132,6 +133,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
             e.printStackTrace();
         }
     }
+
     private void getProductList() {
         try {
             progressDialog.setMessage("loading...");
@@ -157,13 +159,13 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.cartviews:
-                 intent = new Intent(ProductDetailsActivity.this, CartActivity.class);
+                intent = new Intent(ProductDetailsActivity.this, CartActivity.class);
                 startActivity(intent);
                 break;
             case R.id.gotoCart:
-                 intent = new Intent(ProductDetailsActivity.this, CartActivity.class);
+                intent = new Intent(ProductDetailsActivity.this, CartActivity.class);
                 startActivity(intent);
                 break;
         }

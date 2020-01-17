@@ -3,6 +3,7 @@ package com.bytes.tech.awizom.ecommerceproject.adapter;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,11 +18,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bytes.tech.awizom.ecommerceproject.R;
+import com.bytes.tech.awizom.ecommerceproject.activity.AddressActivity;
 import com.bytes.tech.awizom.ecommerceproject.activity.OnItemClick;
 import com.bytes.tech.awizom.ecommerceproject.configure.HelperApi;
 import com.bytes.tech.awizom.ecommerceproject.configure.SharedPrefManager;
 import com.bytes.tech.awizom.ecommerceproject.models.CartAssured;
 import com.bytes.tech.awizom.ecommerceproject.models.CartModel;
+import com.bytes.tech.awizom.ecommerceproject.models.OrderDetailMain;
+import com.bytes.tech.awizom.ecommerceproject.models.OrderMainModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -45,11 +49,14 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.OrderItemView
     private CartAssured cartAssureds;
     private ProgressDialog progressDialog;
     private OnItemClick mCallback;
-
-    public CartAdapter(Context mCtx, List<CartModel> OrderNewOnes, OnItemClick listener) {
+    long orderDetailID=0;
+    OrderDetailMain orderDetailMain;
+    long orderMainID=0;
+    public CartAdapter(Context mCtx, List<CartModel> OrderNewOnes, OnItemClick listener, long orderMainID) {
         this.mCtx = mCtx;
         this.cardmodellist = OrderNewOnes;
         this.mCallback = listener;
+        this.orderMainID = orderMainID;
     }
 
     @NonNull
@@ -62,7 +69,7 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.OrderItemView
 
     @Override
     public void onBindViewHolder(@NonNull final CartAdapter.OrderItemViewHolder holder, int position) {
-        CartModel catagoriesModel = cardmodellist.get(position);
+        final CartModel catagoriesModel = cardmodellist.get(position);
         try{
             holder.productIdd.setText(String.valueOf(catagoriesModel.getProductId()));
             holder.cartIds.setText(String.valueOf(catagoriesModel.getCartId()));
@@ -78,6 +85,46 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.OrderItemView
             holder.branNam.setText(catagoriesModel.getBrandName().toString());
             holder.totaldiscount.setText(String.valueOf(catagoriesModel.getTotalDiscountsPer()) + "%");
 
+            holder.donebtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
+                        result = new HelperApi.PostOrderDetailMain().execute(
+                                String.valueOf(orderDetailID),
+                                String.valueOf(orderMainID),
+                                String.valueOf(catagoriesModel.getProductId()),
+                                String.valueOf(catagoriesModel.getMRPINR()),
+                                holder.quantity.getText().toString(),
+                                holder.totals.getText().toString(),
+                                String.valueOf(catagoriesModel.getMRPDiscountINR()) ,
+                                String.valueOf(catagoriesModel.getAssuredPriceINR()), "0", "0","0","0").get();
+                        if (result.isEmpty()) {
+                            result = new HelperApi.PostOrderDetailMain().execute(
+                                    String.valueOf(orderDetailID),
+                                    String.valueOf(orderMainID),
+                                    String.valueOf(catagoriesModel.getProductId()),
+                                    String.valueOf(catagoriesModel.getMRPINR()),
+                                    holder.quantity.getText().toString(),
+                                    holder.totals.getText().toString(),
+                                    String.valueOf(catagoriesModel.getMRPDiscountINR()) ,
+                                    String.valueOf(catagoriesModel.getAssuredPriceINR()), "0", "0","0","0").get();
+                        } else {
+
+                            Gson gson = new Gson();
+                            Type listType = new TypeToken<OrderMainModel>() {
+                            }.getType();
+                            orderDetailMain = new Gson().fromJson(result, listType);
+                            orderDetailID = orderDetailMain.getOrderId();
+
+
+
+
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
             holder.Qtys.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -255,42 +302,7 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.OrderItemView
                         total = qty*ass_price;
                         holder.totals.setText("₹"+total.toString());
                         mCallback.onClick( holder.totals.toString());
-//                        if(!holder.totals.getText().toString().isEmpty()){
-//                            try {
-//
-//                                result = new HelperApi.PostCartAmount().execute(
-//                                        String.valueOf(CartAssuredId),
-//                                        holder.cartIds.getText().toString(),
-//                                        holder.productIdd.getText().toString(),
-//                                        SharedPrefManager.getInstance(mCtx).getUser().getUserID().toString(),
-//                                        holder.quantity.getText().toString(),
-//                                        holder.totals.getText().toString().split("₹")[1]).get();
-//                                if (result.isEmpty()) {
-//                                    result = new HelperApi.PostCartAmount().execute(
-//                                            String.valueOf(CartAssuredId),
-//                                            holder.cartIds.getText().toString(),
-//                                            holder.productIdd.getText().toString(),
-//                                            SharedPrefManager.getInstance(mCtx).getUser().getUserID().toString(),
-//                                            holder.quantity.getText().toString(),
-//                                            holder.totals.getText().toString().split("₹")[1]).get();
-//                                } else {
-//                                    if (result.isEmpty()) {
-//
-//                                    } else {
-//                                        Gson gson = new Gson();
-//                                        Type listType = new TypeToken<List<CartAssured>>() {
-//                                        }.getType();
-//                                        cartAssureds = new Gson().fromJson(result, listType);
-//                                        CartAssuredId =cartAssureds.getCartAssuredId();
-//                                        Toast.makeText(mCtx,String.valueOf(CartAssuredId),Toast.LENGTH_LONG).show();
-//                                    }
-//                                }
-//                            } catch (Exception e) {
-//                                e.printStackTrace();
-//                            }
-//                        }else {
-//
-//                        }
+
                     }
 
 
@@ -319,16 +331,13 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.OrderItemView
         }catch (Exception e){
             e.printStackTrace();
         }
-    }
 
-    private void showdailog(String s) {
 
     }
+
 
     @Override
     public long getItemId(int position) {
-
-
 
         return position;
     }
@@ -349,7 +358,7 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.OrderItemView
         private List<CartModel> cardmodellist;
         private Context mCtx;
         private Button minusbtn,plusBtn;
-        TextView descripyion,brandId,branNam, totaldiscount;
+        TextView descripyion,brandId,branNam, totaldiscount,donebtn;
 
         public OrderItemViewHolder(View view, Context mCtx, List<CartModel> OrderNewOnes) {
             super(view);
@@ -368,6 +377,8 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.OrderItemView
             discount = view.findViewById(R.id.dicount);
             totals = view.findViewById(R.id.total);
             Qtys = view.findViewById(R.id.Qty);
+
+            donebtn = view.findViewById(R.id.done);
 
             productIdd =view.findViewById(R.id.productId);
             imglinks = view.findViewById(R.id.imaglink);

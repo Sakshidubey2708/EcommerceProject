@@ -473,7 +473,7 @@ public class HelperApi extends AppCompatActivity {
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "/CartPost");
+                builder.url(AppConfig.BASE_URL_API + "/CartPost/"+productID);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 FormBody.Builder parameters = new FormBody.Builder();
@@ -660,7 +660,7 @@ public class HelperApi extends AppCompatActivity {
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "/OrderDetailMainPost");
+                builder.url(AppConfig.BASE_URL_API + "/OrderDetailMainPost/"+ProductId);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 FormBody.Builder parameters = new FormBody.Builder();

@@ -7,6 +7,24 @@
         <item
             android:id="@+id/nav_Categories"
             android:title="Categories" />
+
+        <item
+            android:id="@+id/nav_Home"
+            android:title="@string/homeliving" />
+        <item
+            android:id="@+id/nav_electronics"
+            android:title="Electronics" />
+
+        <item
+            android:id="@+id/nav_fashion"
+            android:title="Fashion" />
+        <item
+            android:id="@+id/nav_education"
+            android:title="Education" />
+
+        <item
+            android:id="@+id/nav_medical"
+            android:title="Medical" />
         <item
             android:id="@+id/nav_SubCategories"
             android:title="Sub Categories " />
