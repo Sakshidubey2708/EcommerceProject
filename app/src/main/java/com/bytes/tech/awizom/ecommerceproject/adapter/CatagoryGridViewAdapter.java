@@ -10,7 +10,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import com.bytes.tech.awizom.ecommerceproject.MainActivity;
 import com.bytes.tech.awizom.ecommerceproject.R;
-import com.bytes.tech.awizom.ecommerceproject.activity.ProductDetailsActivity;
 import com.bytes.tech.awizom.ecommerceproject.activity.ViewSubCatagoryActivity;
 import com.bytes.tech.awizom.ecommerceproject.models.CatagoriesModel;
 import java.util.List;
