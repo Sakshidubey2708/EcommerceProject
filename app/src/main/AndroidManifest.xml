@@ -40,12 +40,11 @@
         <activity
             android:name=".activity.ViewSubCatagoryActivity"
             android:theme="@style/AppTheme.NoActionBar">
-
         </activity>
+
         <activity
             android:name=".activity.AddressActivity"
             android:theme="@style/AppTheme.NoActionBar">
-
         </activity>
 
         <activity
@@ -80,9 +79,11 @@
             <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         </activity>
+
         <activity android:name=".activity.OrdertrackingActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+
         <activity
             android:name=".activity.ProductListActivity"
             android:theme="@style/AppTheme.NoActionBar">

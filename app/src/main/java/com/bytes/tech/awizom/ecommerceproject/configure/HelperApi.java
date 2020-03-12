@@ -459,7 +459,6 @@ public class HelperApi extends AppCompatActivity {
         }
     }
 
-
     public static final class  PostCarts extends AsyncTask<String, Void, String> {
 
         @Override
@@ -580,7 +579,6 @@ public class HelperApi extends AppCompatActivity {
             }
         }
     }
-
 
     public static final class  PostOrderMain extends AsyncTask<String, Void, String> {
 
@@ -803,6 +801,7 @@ public class HelperApi extends AppCompatActivity {
             }
         }
     }
+
     public static final class  PostBuiltyUpload extends AsyncTask<String, Void, String> {
 
         @Override

@@ -3,11 +3,8 @@ package com.bytes.tech.awizom.ecommerceproject.activity;
 import android.app.ActivityOptions;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,7 +19,6 @@ import com.bytes.tech.awizom.ecommerceproject.adapter.CartAdapter;
 import com.bytes.tech.awizom.ecommerceproject.configure.HelperApi;
 import com.bytes.tech.awizom.ecommerceproject.configure.SharedPrefManager;
 import com.bytes.tech.awizom.ecommerceproject.models.AmountTotalShow;
-import com.bytes.tech.awizom.ecommerceproject.models.CartAssured;
 import com.bytes.tech.awizom.ecommerceproject.models.CartModel;
 import com.bytes.tech.awizom.ecommerceproject.models.OrderDetailMain;
 import com.bytes.tech.awizom.ecommerceproject.models.OrderMainModel;
@@ -136,7 +132,8 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                 progressDialog.dismiss();
             //    mSwipeRefreshLayout.setRefreshing(false);
             } else {
-                //    mSwipeRefreshLayout.setRefreshing(false);
+                //    mSwipeRefre
+                // shLayout.setRefreshing(false);
                /*   Toast.makeText(getApplicationContext(),result+"",Toast.LENGTH_LONG).show();*/
                     Gson gson = new Gson();
                     Type listType = new TypeToken<List<CartModel>>() {
@@ -193,7 +190,6 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
-
     }
 
     @Override
@@ -206,7 +202,6 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private  void postOrderMain(){
-
         try {
             result = new HelperApi.PostOrderMain().execute(
                     String.valueOf(orderMainID),
@@ -232,7 +227,6 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                     Gson gson = new Gson();
                     Type listType = new TypeToken<OrderMainModel>() {
                     }.getType();
-
                     orderMainModel = new Gson().fromJson(result, listType);
                     orderMainID =orderMainModel.getOrderId();
 
@@ -249,8 +243,6 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
     private void orderDetails(String orderMainID) {
 
         try {
-
-
             result = new HelperApi.PostOrderDetailMain().execute(
                     String.valueOf(orderDetailID),
                     orderMainID.toString(),
@@ -275,10 +267,6 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                 }.getType();
                 orderDetailMain = new Gson().fromJson(result, listType);
                 orderDetailID = orderDetailMain.getOrderId();
-
-
-
-
             }
         } catch (Exception e) {
             e.printStackTrace();
